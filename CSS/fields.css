@@ -1,0 +1,36 @@
+.row {
+    margin-left: 0;
+    margin-right: 0;
+}
+
+.center {
+    margin: auto;
+    max-width: 700px;
+}
+
+#type-form {
+    width: 120px;
+}
+
+#field-form {
+    width: 530px;
+}
+
+#title-wrapper {
+    width: 100%;
+}
+
+#form-wrapper {
+    margin: auto;
+}
+
+#title {
+    font-size: 2.5rem;
+    padding-top: 40px;
+    padding-bottom: 20px;
+    text-align: center;
+}
+
+#total {
+    font-size: 2rem;
+}
