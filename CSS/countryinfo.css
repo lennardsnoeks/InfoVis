@@ -1,0 +1,42 @@
+.dropdown {
+    float: right;
+    width: 200px;
+}
+
+#title-wrapper {
+    border-bottom: 1px solid #ddd;
+    margin-bottom: 20px;
+}
+
+.caret {
+    float: right;
+    margin-top: 7px;
+}
+
+#dropdown-year {
+    border-color:#ccc;
+    box-shadow:0 0 0 0;
+    height: 34px;
+    width: 100%;
+}
+
+.stylish-input-group {
+    width: 200px;
+    text-align: left;
+    border-color: rgb(204, 204, 204);
+}
+
+.stylish-input-group .input-group-addon{
+    background: white !important;
+}
+
+.stylish-input-group .form-control{
+    border-right:0;
+    box-shadow:0 0 0;
+    border-color:#ccc;
+}
+
+.stylish-input-group button{
+    border:0;
+    background:transparent;
+}

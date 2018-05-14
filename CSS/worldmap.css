@@ -1,0 +1,120 @@
+#worldmap {
+    width: 100%;
+    height: 600px;
+    margin-left: auto;
+    margin-right: auto;
+    position: absolute !important;
+    padding-bottom: 40% !important;
+    padding-top: 35px;
+}
+
+.row {
+    margin-left: 0;
+    margin-right: 0;
+}
+
+#title-wrapper {
+    width: 100%;
+    background-color: #fcfcfc;
+    border-bottom: 1px solid #ddd;
+    margin-bottom: 20px;
+}
+
+#title {
+    font-size: 2.5rem;
+    padding-top: 20px;
+    padding-bottom: 5px;
+    text-align: center;
+}
+
+#range_year {
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#filter-input {
+    text-align: center;
+}
+
+#total {
+    font-size: 2rem;
+}
+
+.dropdown {
+    width: 200px;
+}
+
+#dropdown-year-btn, #dropdown-sort-edu-btn {
+    border-color:#ccc;
+    box-shadow:0 0 0 0;
+    height: 34px;
+    width: 100%;
+    font-size: 14px;
+}
+
+.caret {
+    color: #999;
+    float: right;
+    margin-top: 7px;
+}
+
+.filter-option {
+    text-align: center !important;
+}
+
+.bootstrap-select {
+    width: 200px !important;
+}
+
+.dropdown-toggle {
+    border-radius: 3px !important;
+}
+
+#tags {
+    color: transparent;
+    width: 50%;
+    text-align: center;
+}
+
+.inputrow input:focus {
+    color: transparent;
+    text-shadow: 0 0 0 #666;
+}
+
+.inputrow input {
+    cursor: default !important;
+}
+
+.bootstrap-tagsinput {
+    cursor: default !important;
+    border-radius: 3px !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+    display: block !important;
+    width: 50% !important;
+    margin-top: 5px !important;
+    border: 0 !important;
+    box-shadow: none !important;
+}
+
+.bootstrap-select>.dropdown-toggle.bs-placeholder, .bootstrap-select>.dropdown-toggle.bs-placeholder:active, .bootstrap-select>.dropdown-toggle.bs-placeholder:focus, .bootstrap-select>.dropdown-toggle.bs-placeholder:hover {
+    color: black !important;
+}
+
+/*#slider label {
+    position: absolute;
+    width: 20px;
+    margin-left: -10px;
+    text-align: center;
+    margin-top: 20px;
+}
+
+#slider-wrapper {
+    margin-top: 25px;
+}
+
+#slider {
+    margin-left: auto;
+    margin-right: auto;
+    width: 60%;
+}*/

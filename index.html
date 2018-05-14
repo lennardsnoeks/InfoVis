@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Buitelandse studenten aan UHasselt</title>
+
+    <!-- JQuery -->
+    <script src="http://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+    <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+    <link href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/themes/base/jquery-ui.css" rel="stylesheet">
+
+    <!-- Bootstrap -->
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+
+    <!-- D3 -->
+    <script src="//cdnjs.cloudflare.com/ajax/libs/d3/3.5.3/d3.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/topojson/1.6.9/topojson.min.js"></script>
+
+    <!-- Bootstrap select -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.4/css/bootstrap-select.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.4/js/bootstrap-select.min.js"></script>
+
+    <!-- Bootstrap tags input -->
+    <script src="bootstrap-tagsinput-latest/dist/bootstrap-tagsinput.js"></script>
+    <link href="bootstrap-tagsinput-latest/dist/bootstrap-tagsinput.css" rel="stylesheet">
+
+    <!-- Self defined files -->
+    <script src="Javascript/datamaps.world.min.js"></script>
+    <script src="Javascript/datamaps-zoomto.min.js"></script>
+    <script src="Javascript/sidebar.js"></script>
+    <script src="Javascript/tags.js"></script>
+    <link href="CSS/homepage.css" rel="stylesheet">
+    <link href="CSS/worldmap.css" rel="stylesheet">
+</head>
+<body>
+    <div id="wrapper">
+        <div class="overlay"></div>
+
+        <!-- Sidebar -->
+        <div id="nav-placeholder"></div>
+
+        <!-- Page Content -->
+        <div id="page-content-wrapper">
+            <button type="button" id="test" class="hamburger is-closed" data-toggle="offcanvas">
+                <span class="hamb-top"></span>
+                <span class="hamb-middle"></span>
+                <span class="hamb-bottom"></span>
+            </button>
+            <div id="title-wrapper" class="row">
+                <p id="title">Inschrijvingen van buitenlandse studenten aan de UHasselt</p>
+            </div>
+            <!--<ul class="nav nav-tabs" id="navbar">
+                <li class="active"><a href="#worldmap-nav">Wereldkaart</a></li>
+                <li><a href="#amount-nav">Aantal</a></li>
+                <li><a href="#evolution-nav">Evolutie</a></li>
+            </ul>
+            <div class="tab-content">-->
+                <div id="worldmap-nav" class="tab-pane fade in active">
+                    <!--<div class="row" id="slider-wrapper">
+                        <div class="col-md-9">
+                            <div id="slider"></div>
+                        </div>
+                        <div class="col-md-3">
+                            <p id="total"></p>
+                        </div>
+                    </div>-->
+                    <div class="row" id="filter-input">
+                        <div class="dropdown btn-group">
+                            <button class="btn btn-default btn-sm dropdown-toggle" id="dropdown-year-btn" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Jaar<span class="caret"></span></button>
+                            <ul id="dropdown-year" class="dropdown-menu">
+                                <li><a href="#">2013-2014</a></li>
+                                <li><a href="#">2014-2015</a></li>
+                                <li><a href="#">2015-2016</a></li>
+                                <li><a href="#">2016-2017</a></li>
+                                <li><a href="#">2017-2018</a></li>
+                            </ul>
+                        </div>
+                        <div class="dropdown btn-group">
+                            <button class="btn btn-default btn-sm dropdown-toggle" id="dropdown-sort-edu-btn" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Type opleiding<span class="caret"></span></button>
+                            <ul id="dropdown-sort-edu" class="dropdown-menu">
+                                <li><a href="#">Exchange</a></li>
+                                <li><a href="#">Master</a></li>
+                                <li><a href="#">Doctoraat</a></li>
+                            </ul>
+                        </div>
+                        <div class="dropdown btn-group">
+                            <select id="dropdown-edu" class="selectpicker" title="Opleiding" data-selected-text-format="static" data-live-search="true">
+                                <option>Hot Dog Fries and a Soda</option>
+                                <option>Burger Shake and a Smile</option>
+                                <option>Sugar: Spice and all things nice</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row inputrow">
+                        <input id="tags" data-role="tagsinput"/>
+                    </div>
+                    <div id="worldmap" class="row"></div>
+                </div>
+                <!--<div id="amount-nav" class="tab-pane fade">
+                    <h3>Menu 1</h3>
+                    <p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+                </div>
+                <div id="evolution-nav" class="tab-pane fade">
+                    <h3>Menu 2</h3>
+                    <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam.</p>
+                </div>
+            </div>-->
+
+        </div>
+        <!-- /#page-content-wrapper -->
+
+    </div>
+    <!-- /#wrapper -->
+
+    <script>
+        $(function(){
+            $("#nav-placeholder").load("nav.html");
+        });
+
+        /*$(document).ready(function(){
+            $(".nav-tabs a").click(function(){
+                $(this).tab('show');
+            });
+        });*/
+
+    </script>
+    <script src="Javascript/worldmap.js"></script>
+</body>
+</html>

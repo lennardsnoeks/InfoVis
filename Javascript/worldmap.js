@@ -1,0 +1,133 @@
+let map;
+
+let initialValue = 2013;
+
+readDataset(initialValue);
+
+$("#slider").slider({
+    value: 2013,
+    min: 2013,
+    max: 2017,
+    step: 1
+})
+    .each(function () {
+        // Get the options for this slider
+        const opt = $(this).data().uiSlider.options;
+
+        // Get the number of possible values
+        const vals = opt.max - opt.min;
+
+        // Space out values
+        for (let i = 0; i <= vals; i++) {
+            let el = $('<label>' + (opt.value + i) + '</label>').css('left', (i / vals * 100) + '%');
+            $("#slider").append(el);
+        }
+    });
+
+let startPos = $("#slider").slider("value");
+let endPos = '';
+
+$("#slider").on("slidestop", function (event, ui) {
+    endPos = ui.value;
+
+    if (startPos !== endPos) {
+        // do stuff
+        readDataset(endPos);
+    }
+
+    startPos = endPos;
+});
+
+function readDataset(slider_value) {
+    //let file = "datasets/all-time.csv";
+    //let file = "datasets/" + $('input[name=time]:checked', '#timespan').val() + ".csv";
+
+    let file = "datasets/" + slider_value + ".csv";
+
+    d3.csv(file, function (data) {
+        let max = Math.max.apply(Math, data.map(function (item) {
+            return item["amount"];
+        }));
+
+        let sum = d3.sum(data, function(d){return parseFloat(d.amount);});
+
+        let paletteScale = d3.scale.linear()
+            .domain([0, max])
+            .range(["#ffffff", "#ff0006"]);
+
+        let dataset = {};
+
+        data.forEach(function (item) {
+            // item example value ["USA", 70]
+            let country = item["country"];
+            let amount = item["amount"];
+
+            dataset[country] = {students: amount, fillColor: paletteScale(amount)};
+        });
+
+        if (map == null) {
+            map = createMap(dataset);
+            map.legend();
+        } else {
+            updateMap(map, dataset);
+        }
+
+        $("#total").text("Totaal:  " + sum);
+    });
+}
+
+function createMap(dataset) {
+    window.addEventListener('resize', function (event) {
+        map.resize();
+    });
+
+    return new Datamap({
+        element: document.getElementById('worldmap'),
+        // countries don't listed in dataset will be painted with this color
+        responsive: 'true',
+        setProjection: function (element) {
+            let projection = d3.geo.equirectangular()
+                .center([0, 0])
+                .scale((element.offsetWidth - 200) / 2 / Math.PI)
+                .translate([element.offsetWidth / 2, element.offsetHeight / 2]);
+            let path = d3.geo.path()
+                .projection(projection);
+            return {path: path, projection: projection};
+        },
+        fills: {defaultFill: '#ffffff'},
+        data: dataset,
+        geographyConfig: {
+            borderColor: '#000000',
+            borderWidth: 0.5,
+            highlightBorderWidth: 0.8,
+            highlightBorderColor: '#000000',
+            // don't change color on mouse hover
+            highlightFillColor: function (geo) {
+                return geo['fillColor'] || '#ffffff';
+            },
+            popupTemplate: function (geo, data) {
+                // don't show tooltip if country don't present in dataset
+                if (!data) {
+                    return;
+                }
+                // tooltip content
+                return ['<div class="hoverinfo">',
+                    '<strong>', geo.properties.name, '</strong>',
+                    '<br>Students: <strong>', data.students, '</strong>',
+                    '</div>'].join('');
+            }
+        },
+        done: function(datamap) {
+            datamap.svg.selectAll('.datamaps-subunit').on('click', function(geography) {
+                window.location.href = "http://localhost:63342/Project_Info_Vis/countryinfo.html?"
+                    + "iso=" + geography.properties.iso
+                    + "&country=" + geography.properties.name
+                    + "&year=" + startPos + "-" + (startPos + 1);
+            });
+        }
+    });
+}
+
+function updateMap(map, dataset) {
+    map.updateChoropleth(dataset);
+}
