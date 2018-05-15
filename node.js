@@ -5,37 +5,33 @@ let app = express();
 let db = new sqlite3.Database('datasets/dataset.sqlite');
 
 // WORLDMAP PAGE
-// e.g localhost:3000/worldmap?years=2013-2014,2014-2015&type=Master
+// e.g localhost:3000/worldmap?years=2013-2014,2014-2015&types=Master
 app.get('/worldmap', function(req, res){
     let years = req.query.years;
-    let type = req.query.type;
-    let field = req.query.field;
+    let types = req.query.types;
+    let fields = req.query.fields;
 
     let sql_years = "1=1";
-    let sql_type = "1=1";
-    let sql_field = "1=1";
+    let sql_types = "1=1";
+    let sql_fields = "1=1";
     let items = [];
-    let count = 0;
 
     if(years != null) {
         items = years.split(",");
         sql_years = 'inschrijving IN ' + '("' + items.join('","') + '")';
-        count = count + 1;
     }
 
-    if(type != null) {
-        items = type.split(",");
-        sql_type = 'type IN ' + '("' + items.join('","') + '")';
-        count = count + 1;
+    if(types != null) {
+        items = types.split(",");
+        sql_types = 'type IN ' + '("' + items.join('","') + '")';
     }
 
-    if(field != null) {
-        items = field.split(",");
-        sql_field = 'opleiding IN ' + '("' + items.join('","') + '")';
-        count = count + 1;
+    if(fields != null) {
+        items = fields.split(",");
+        sql_fields = 'opleiding IN ' + '("' + items.join('","') + '")';
     }
 
-    let sql = 'SELECT iso, COUNT(*) as amount FROM dataset WHERE ' + sql_years + ' AND ' + sql_type + ' AND ' + sql_field + ' GROUP BY iso';
+    let sql = 'SELECT iso, COUNT(*) as amount FROM dataset WHERE ' + sql_years + ' AND ' + sql_types + ' AND ' + sql_fields + ' GROUP BY iso';
 
     db.all(sql, [],(err, rows) => {
         if (err) {
