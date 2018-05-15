@@ -2,8 +2,6 @@ let yearsArray = [];
 let typesArray = [];
 let fieldsArray = [];
 
-let map;
-
 $(document).ready(function() {
     // Dynamically fill years
     $.get('http://localhost:3000/years', {}, function (data) {
@@ -131,21 +129,14 @@ function fillWorldmap() {
             dataset[iso] = {students: amount, fillColor: paletteScale(amount)};
         });
 
-        if (map == null) {
-            map = createMap(dataset);
-            map.legend();
-        } else {
-            updateMap(map, dataset);
-        }
+        createMap(dataset);
     });
 }
 
 function createMap(dataset) {
-    window.addEventListener('resize', function (event) {
-        map.resize();
-    });
+    $('#worldmap').empty();
 
-    return new Datamap({
+    let map = new Datamap({
         element: document.getElementById('worldmap'),
         // countries don't listed in dataset will be painted with this color
         responsive: 'true',
@@ -170,14 +161,16 @@ function createMap(dataset) {
                 return geo['fillColor'] || '#ffffff';
             },
             popupTemplate: function (geo, data) {
-                // don't show tooltip if country don't present in dataset
-                if (!data) {
-                    return;
+                let amount = "0";
+
+                if(data != null) {
+                    amount = data.students;
                 }
+
                 // tooltip content
                 return ['<div class="hoverinfo">',
                     '<strong>', geo.properties.name, '</strong>',
-                    '<br>Students: <strong>', data.students, '</strong>',
+                    '<br>Students: <strong>', amount, '</strong>',
                     '</div>'].join('');
             }
         },
@@ -189,8 +182,8 @@ function createMap(dataset) {
             });
         }
     });
-}
 
-function updateMap(map, dataset) {
-    map.updateChoropleth(dataset);
+    window.addEventListener('resize', function (event) {
+        map.resize();
+    });
 }
