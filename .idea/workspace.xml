@@ -26,11 +26,20 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="filter-map.js" pinned="false" current-in-tab="false">
+      <file leaf-file-name="filter-map.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/Javascript/filter-map.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="464">
-              <caret line="74" selection-start-line="74" selection-end-line="74" />
+            <state relative-caret-position="799">
+              <caret line="47" column="32" selection-start-line="47" selection-start-column="32" selection-end-line="47" selection-end-column="32" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="worldmap.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/Javascript/worldmap.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="2108">
+              <caret line="124" column="38" selection-start-line="124" selection-start-column="38" selection-end-line="124" selection-end-column="38" />
             </state>
           </provider>
         </entry>
@@ -53,7 +62,7 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="node.js" pinned="false" current-in-tab="true">
+      <file leaf-file-name="node.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/node.js">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="-153" />
@@ -141,8 +150,8 @@
         <option value="$PROJECT_DIR$/Javascript/fields.js" />
         <option value="$PROJECT_DIR$/Javascript/tags.js" />
         <option value="$PROJECT_DIR$/CSS/worldmap.css" />
-        <option value="$PROJECT_DIR$/Javascript/filter-map.js" />
         <option value="$PROJECT_DIR$/index.html" />
+        <option value="$PROJECT_DIR$/Javascript/filter-map.js" />
       </list>
     </option>
   </component>
@@ -276,24 +285,24 @@
       <workItem from="1526207286238" duration="15068000" />
       <workItem from="1526310357257" duration="313000" />
       <workItem from="1526371756211" duration="6529000" />
-      <workItem from="1526380285102" duration="3557000" />
+      <workItem from="1526380285102" duration="4974000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="116588000" />
+    <option name="totallyTimeSpent" value="118005000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.094791666" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.094791666" />
       <window_info anchor="bottom" id="TODO" order="6" />
       <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
       <window_info anchor="bottom" id="Event Log" order="10" side_tool="true" weight="0.32939914" />
-      <window_info anchor="bottom" id="Find" order="1" visible="true" weight="0.18703507" />
+      <window_info anchor="bottom" id="Find" order="1" weight="0.18703507" />
       <window_info anchor="bottom" id="Version Control" order="9" />
-      <window_info anchor="bottom" id="Run" order="2" weight="0.2975558" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.2975558" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info anchor="bottom" id="Terminal" order="8" />
       <window_info id="Favorites" order="2" side_tool="true" />
@@ -426,13 +435,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Javascript/worldmap.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2108">
-          <caret line="124" column="38" selection-start-line="124" selection-start-column="38" selection-end-line="124" selection-end-column="38" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/Javascript/sidebar.js">
       <provider selected="true" editor-type-id="text-editor">
         <state>
@@ -520,6 +522,11 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/node.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-153" />
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/index.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1768">
@@ -527,10 +534,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Javascript/filter-map.js">
+    <entry file="file://$PROJECT_DIR$/Javascript/worldmap.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="464">
-          <caret line="74" selection-start-line="74" selection-end-line="74" />
+        <state relative-caret-position="2108">
+          <caret line="124" column="38" selection-start-line="124" selection-start-column="38" selection-end-line="124" selection-end-column="38" />
         </state>
       </provider>
     </entry>
@@ -541,9 +548,11 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/node.js">
+    <entry file="file://$PROJECT_DIR$/Javascript/filter-map.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-153" />
+        <state relative-caret-position="799">
+          <caret line="47" column="32" selection-start-line="47" selection-start-column="32" selection-end-line="47" selection-end-column="32" />
+        </state>
       </provider>
     </entry>
   </component>

@@ -44,12 +44,12 @@ $(document).ready(function() {
     // are used to retrieve the data
     $("#filter-input").on("click", "#dropdown-year li", function(){
         $('#tags').tagsinput('add', $(this).text());
-        yearsArray.push($(this).text);
+        yearsArray.push($(this).text());
     });
 
     $("#filter-input").on("click", "#dropdown-sort-edu li", function(){
         $('#tags').tagsinput('add', $(this).text());
-        typesArray.push($(this).text);
+        typesArray.push($(this).text());
     });
 
     $('#dropdown-edu').change(function(){
@@ -68,6 +68,23 @@ $(document).ready(function() {
         yearsArray = [];
         typesArray = [];
         fieldsArray = [];
+    });
+
+    $('#tags').on('itemRemoved', function(event) {
+        console.log(yearsArray);
+        let index = $.inArray(event.item, yearsArray);
+        if(index !== -1) {
+            yearsArray.splice(index, 1);
+        }
+        index = $.inArray(event.item, typesArray);
+        if(index !== -1) {
+            typesArray.splice(index, 1);
+        }
+        index = $.inArray(event.item, fieldsArray);
+        if(index !== -1) {
+            fieldsArray.splice(index, 1);
+        }
+        console.log(yearsArray);
     });
 });
 
