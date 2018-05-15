@@ -71,7 +71,6 @@ $(document).ready(function() {
     });
 
     $('#tags').on('itemRemoved', function(event) {
-        console.log(yearsArray);
         let index = $.inArray(event.item, yearsArray);
         if(index !== -1) {
             yearsArray.splice(index, 1);
@@ -84,7 +83,6 @@ $(document).ready(function() {
         if(index !== -1) {
             fieldsArray.splice(index, 1);
         }
-        console.log(yearsArray);
     });
 });
 
