@@ -29,8 +29,8 @@
       <file leaf-file-name="filter-map.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/Javascript/filter-map.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="799">
-              <caret line="47" column="32" selection-start-line="47" selection-start-column="32" selection-end-line="47" selection-end-column="32" />
+            <state relative-caret-position="1445">
+              <caret line="85" selection-start-line="85" selection-end-line="85" />
             </state>
           </provider>
         </entry>
@@ -285,12 +285,12 @@
       <workItem from="1526207286238" duration="15068000" />
       <workItem from="1526310357257" duration="313000" />
       <workItem from="1526371756211" duration="6529000" />
-      <workItem from="1526380285102" duration="4974000" />
+      <workItem from="1526380285102" duration="5247000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="118005000" />
+    <option name="totallyTimeSpent" value="118278000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
@@ -550,8 +550,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/Javascript/filter-map.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="799">
-          <caret line="47" column="32" selection-start-line="47" selection-start-column="32" selection-end-line="47" selection-end-column="32" />
+        <state relative-caret-position="1445">
+          <caret line="85" selection-start-line="85" selection-end-line="85" />
         </state>
       </provider>
     </entry>
