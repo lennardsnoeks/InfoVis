@@ -58,6 +58,16 @@
     margin-top: 7px;
 }
 
+.icons {
+    padding-right: 0;
+    height: 34px;
+    border-color: white !important;
+    background-color: white;
+    box-shadow: none;
+    border-style: solid;
+    outline: none;
+}
+
 .filter-option {
     text-align: center !important;
 }

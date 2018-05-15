@@ -1,7 +1,7 @@
 $(document).ready(function() {
     let typeform = document.getElementById('type-form');
 
-    $.get('http://localhost:3000/fields/type', {}, function (data) {
+    $.get('http://localhost:3000/types', {}, function (data) {
         data.forEach(function (item) {
             typeform.options[typeform.options.length] = new Option(item["type"], item["type"]);
         });
@@ -17,6 +17,7 @@ function typeChanged() {
     clearFormOptions(fieldform);
 
     $.get('http://localhost:3000/fields/' + type, {}, function (data) {
+        console.log(data);
         data.forEach(function (item) {
             fieldform.options[fieldform.options.length] = new Option(item["field"], item["field"]);
         });
