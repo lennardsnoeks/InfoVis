@@ -183,6 +183,8 @@ function createMap(dataset) {
         }
     });
 
+    map.legend();
+
     window.addEventListener('resize', function (event) {
         map.resize();
     });
