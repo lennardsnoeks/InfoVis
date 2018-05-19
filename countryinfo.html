@@ -64,14 +64,10 @@
 
             <div class="row">
                 <div class="col-lg-4">
-                    <div id="donut-chart">
-
-                    </div>
+                    <div id="donut-chart"></div>
                 </div>
                 <div class="col-lg-8">
-                    <div id="bar-chart-amount">
-
-                    </div>
+                    <div id="bar-chart-amount"></div>
                 </div>
             </div>
         </div>
@@ -81,19 +77,13 @@
     <script>
         const url = new URL(window.location.href);
         const year = url.searchParams.get("year");
-        const c = url.searchParams.get("country");
+        const country = url.searchParams.get("country");
         const iso = url.searchParams.get("iso");
 
-        $("#title").html("Studenten informatie over " + c);
+        $("#title").html("Studenten informatie over " + country);
         $("#dropdown-year").html( year + '   <span class="caret"></span>');
 
-        d3.csv("datasets/" + iso + ".csv", function (data) {
-            data.forEach(function (item) {
-                console.log(item);
-            });
-        });
-
-        $("#search-country").attr("placeholder", c).val("").focus().blur();
+        $("#search-country").attr("placeholder", country).val("").focus().blur();
 
         $(function(){
             $("#nav-placeholder").load("nav.html");

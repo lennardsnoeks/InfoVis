@@ -136,6 +136,7 @@ function fillWorldmap() {
 function createMap(dataset) {
     $('#worldmap').empty();
 
+    let amount;
     let map = new Datamap({
         element: document.getElementById('worldmap'),
         // countries don't listed in dataset will be painted with this color
@@ -161,7 +162,7 @@ function createMap(dataset) {
                 return geo['fillColor'] || '#ffffff';
             },
             popupTemplate: function (geo, data) {
-                let amount = "0";
+                amount = "0";
 
                 if(data != null) {
                     amount = data.students;
@@ -176,10 +177,13 @@ function createMap(dataset) {
         },
         done: function(datamap) {
             datamap.svg.selectAll('.datamaps-subunit').on('click', function(geography) {
-                window.location.href = "http://localhost:63342/Project_Info_Vis/countryinfo.html?"
-                    + "iso=" + geography.properties.iso
-                    + "&country=" + geography.properties.name
+                if(amount != 0) {
+                    window.location.href = "http://localhost:63342/Project_Info_Vis/countryinfo.html?"
+                        + "iso=" + geography.properties.iso
+                        + "&country=" + geography.properties.name
+                }
             });
+
         }
     });
 

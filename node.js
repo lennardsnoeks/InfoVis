@@ -43,10 +43,11 @@ app.get('/worldmap', function(req, res){
 });
 
 // COUNTRY PAGE
-app.get('/country/all', function(req, res){
-    let sql = 'SELECT DISTINCT land land, iso iso FROM dataset';
+app.get('/country/:iso', function(req, res){
+    let iso = req.params.iso;
+    let sql = 'SELECT type, COUNT(*) as amount FROM dataset WHERE iso = ? GROUP BY type';
 
-    db.all(sql, [],(err, rows) => {
+    db.all(sql, [iso],(err, rows) => {
         if (err) {
             throw err;
         }
@@ -55,13 +56,12 @@ app.get('/country/all', function(req, res){
     });
 });
 
-app.get('/country/:iso/:year', function(req, res){
-    let country = req.params.iso;
-    let year = req.params.year + "-" + (parseInt(req.params.year) + 1);
+app.get('/country/:iso/:type', function(req, res){
+    let iso = req.params.iso;
+    let type = req.params.type;
+    let sql = 'SELECT opleiding, COUNT(*) as amount FROM dataset WHERE iso = ? AND type = ? GROUP BY opleiding';
 
-    let sql = 'SELECT type type, opleiding opl FROM dataset WHERE iso = ? AND inschrijving = ?';
-
-    db.all(sql, [country, year],(err, rows) => {
+    db.all(sql, [iso, type],(err, rows) => {
         if (err) {
             throw err;
         }
