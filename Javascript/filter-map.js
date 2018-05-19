@@ -177,8 +177,8 @@ function createMap(dataset) {
         },
         done: function(datamap) {
             datamap.svg.selectAll('.datamaps-subunit').on('click', function(geography) {
-                if(amount != 0) {
-                    window.location.href = "http://localhost:63342/Project_Info_Vis/countryinfo.html?"
+                if(amount !== 0) {
+                    window.location.href = "http://localhost:63342/InfoVis/countryinfo.html?"
                         + "iso=" + geography.properties.iso
                         + "&country=" + geography.properties.name
                 }
