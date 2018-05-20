@@ -84,6 +84,8 @@ $(document).ready(function() {
         if(country == null) {
             let c = data[0];
             $("#title").html("Studenten informatie over " + c["land"]);
+        } else {
+            $("#title").html("Studenten informatie over " + country);
         }
 
         $.each(data, function (i, item) {

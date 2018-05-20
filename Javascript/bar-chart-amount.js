@@ -1,9 +1,9 @@
 let tooltip = d3.select("body").append("div").attr("class", "toolTip");
 
 // set the dimensions and margins of the graph
-let margin = {top: 20, right: 20, bottom: 30, left: 40},
+let margin = {top: 20, right: 20, bottom: 60, left: 40},
     widthBarChart = 960 - margin.left - margin.right,
-    heightBarChart = 400 - margin.top - margin.bottom;
+    heightBarChart = 450 - margin.top - margin.bottom;
 
 // set the ranges
 let xScaleBarChart = d3.scaleBand()
@@ -13,6 +13,8 @@ let yScaleBarChart = d3.scaleLinear()
     .range([heightBarChart, 0]);
 
 function updateBarChart(type, iso) {
+    let color = d3.scaleOrdinal(d3.schemeCategory10);
+
     d3.select("#bar-chart").remove();
 
     // append the svg object to the body of the page
