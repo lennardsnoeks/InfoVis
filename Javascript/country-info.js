@@ -1,15 +1,66 @@
 let yearsArray = [];
 
 const url = new URL(window.location.href);
-const year = url.searchParams.get("year");
-let country = url.searchParams.get("country");
-const iso = url.searchParams.get("iso");
+let year = url.searchParams.get("year");
+let country, iso, type;
+
+// If user navigates with the nav bar to this page, data from first country in database is shown
+if (url.searchParams.get("iso") == null) {
+    // Get ISO from first country in list
+    $.get('http://localhost:3000/countryiso/all', {} , function (data) {
+        let item = data[0];
+        iso = item["iso"];
+
+        // Get types selected country
+        $.get('http://localhost:3000/typesiso/' + iso, {} , function (data) {
+            let item = data[0];
+            type = item["type"];
+
+            if (url.searchParams.get("country") == null) {
+                $.get('http://localhost:3000/country/all', {} , function (data) {
+                    let item = data[0];
+                    country = item["land"];
+
+                    drawDonut(iso);
+                    updateBarChart(type, iso);
+                });
+            } else {
+                country = url.searchParams.get("country");
+
+                drawDonut(iso);
+                updateBarChart(type, iso);
+            }
+        });
+    });
+} else {
+    iso = url.searchParams.get("iso");
+
+    // Get types selected country
+    $.get('http://localhost:3000/typesiso/' + iso, {} , function (data) {
+        let item = data[0];
+        type = item["type"];
+
+        if (url.searchParams.get("country") == null) {
+            $.get('http://localhost:3000/country/all', {} , function (data) {
+                let item = data[0];
+                country = item["land"];
+
+                drawDonut(iso);
+                updateBarChart(type, iso);
+            });
+        } else {
+            country = url.searchParams.get("country");
+
+            drawDonut(iso);
+            updateBarChart(type, iso);
+        }
+    });
+}
 
 $(document).ready(function() {
-    $("#title").html("Studenten informatie over " + country);
+    console.log(country, iso, type);
 
-    $('#tags').tagsinput('add', country);
-    $('#tags').tagsinput('add', year);
+    $('#tags').tagsinput('add', "Alle jaren");
 
     // Dynamically fill years
     $.get('http://localhost:3000/years', {}, function (data) {
@@ -23,15 +74,27 @@ $(document).ready(function() {
     });
 
     // Dynamically fill countries
-    $.get('http://localhost:3000/countries/all', {}, function (data) {
+    $.get('http://localhost:3000/country/all', {}, function (data) {
         let items = [];
 
+        if(year != null) {
+            $('#tags').tagsinput('add', year);
+        }
+
+        if(country == null) {
+            let c = data[0];
+            $("#title").html("Studenten informatie over " + c["land"]);
+        }
+
         $.each(data, function (i, item) {
-            items.push('<option>' + item["field"] + '</option>');
+            items.push('<option>' + item["land"] + '</option>');
         });
 
         $('#dropdown-country').html(items);
         $('#dropdown-country').selectpicker('refresh');
+
+        $('select[name=ddc]').val(country);
+        $('.selectpicker').selectpicker('refresh');
     });
 
     // Add tags when user selects them, also add them to internal array. When user clicks search these parameters
@@ -40,11 +103,19 @@ $(document).ready(function() {
         $('#tags').tagsinput('add', $(this).text());
         yearsArray.push($(this).text());
         $('#tags').tagsinput('remove', "Alle jaren");
+        year = $(this).text();
     });
 
     $('#dropdown-country').change(function(){
-        $('#tags').tagsinput('remove', country);
-        $('#tags').tagsinput('add', $(this).val());
         country = $(this).val();
+    });
+
+    $('#deleteFilters').on('click', function() {
+        $('#tags').tagsinput('removeAll');
+        $('#tags').tagsinput('add', "Alle jaren");
+
+        yearsArray = [];
+
+        year = "Alle jaren";
     });
 });

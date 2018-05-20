@@ -12,9 +12,7 @@ let xScaleBarChart = d3.scaleBand()
 let yScaleBarChart = d3.scaleLinear()
     .range([heightBarChart, 0]);
 
-updateBarChart("Master");
-
-function updateBarChart(type) {
+function updateBarChart(type, iso) {
     d3.select("#bar-chart").remove();
 
     // append the svg object to the body of the page
@@ -59,7 +57,7 @@ function updateBarChart(type) {
                     .style("left", d3.event.pageX - 50 + "px")
                     .style("top", d3.event.pageY - 70 + "px")
                     .style("display", "inline-block")
-                    .html(d.amount);
+                    .html(d.opleiding + ": " +d.amount);
             })
             .on("mouseout", function (d, i) {
                 tooltip.style("display", "none");

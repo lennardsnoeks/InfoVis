@@ -55,6 +55,31 @@ app.get('/country/all', function(req, res){
     });
 });
 
+app.get('/countryiso/all', function(req, res){
+    let sql = 'SELECT DISTINCT iso FROM dataset';
+
+    db.all(sql, [],(err, rows) => {
+        if (err) {
+            throw err;
+        }
+
+        res.send(JSON.parse(JSON.stringify(rows))); //replace with your data
+    });
+});
+
+app.get('/countryname/:name', function(req, res) {
+   let name = req.params.name;
+   let sql = 'SELECT iso FROM dataset WHERE land = ?';
+
+    db.all(sql, [name],(err, rows) => {
+        if (err) {
+            throw err;
+        }
+
+        res.send(JSON.parse(JSON.stringify(rows))); //replace with your data
+    });
+});
+
 app.get('/country/:iso', function(req, res){
     let iso = req.params.iso;
     let sql = 'SELECT type, COUNT(*) as amount FROM dataset WHERE iso = ? GROUP BY type';
@@ -71,7 +96,7 @@ app.get('/country/:iso', function(req, res){
 app.get('/country/:iso/:type', function(req, res){
     let iso = req.params.iso;
     let type = req.params.type;
-    let sql = 'SELECT opleiding, COUNT(*) as amount FROM dataset WHERE iso = ? AND type = ? GROUP BY opleiding';
+    let sql = 'SELECT opleiding, COUNT(*) as amount FROM dataset WHERE iso = ? AND type = ? GROUP BY opleiding ORDER BY COUNT(*) DESC';
 
     db.all(sql, [iso, type],(err, rows) => {
         if (err) {
@@ -100,6 +125,21 @@ app.get('/types', function(req, res){
     let sql = 'SELECT DISTINCT type type FROM dataset';
 
     db.all(sql, [],(err, rows) => {
+        if (err) {
+            throw err;
+        }
+
+        res.send(JSON.parse(JSON.stringify(rows))); //replace with your data
+    });
+});
+
+// Get all available types for certain country (Master, Doctoraat, ...)
+app.get('/typesiso/:iso', function(req, res){
+    let iso = req.params.iso;
+
+    let sql = 'SELECT DISTINCT type FROM dataset WHERE iso = ?';
+
+    db.all(sql, [iso],(err, rows) => {
         if (err) {
             throw err;
         }
