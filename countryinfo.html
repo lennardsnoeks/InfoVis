@@ -3,93 +3,98 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
-    <script src="http://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+
+    <!-- JQuery -->
+    <script src="http://code.jquery.com/jquery-3.3.1.min.js"
+            integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
     <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
     <link href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/themes/base/jquery-ui.css" rel="stylesheet">
+
+    <!-- Bootstrap -->
     <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
     <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+
+    <!-- D3 -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/4.13.0/d3.min.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/topojson/1.6.9/topojson.min.js"></script>
+
+    <!-- Bootstrap select -->
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.4/css/bootstrap-select.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.4/js/bootstrap-select.min.js"></script>
+
+    <!-- Bootstrap tags input -->
+    <script src="bootstrap-tagsinput-latest/dist/bootstrap-tagsinput.js"></script>
+    <link href="bootstrap-tagsinput-latest/dist/bootstrap-tagsinput.css" rel="stylesheet">
+
+    <!-- Self defined files -->
     <script src="Javascript/sidebar.js"></script>
     <link href="CSS/homepage.css" rel="stylesheet">
     <link href="CSS/worldmap.css" rel="stylesheet">
-    <link href="CSS/countryinfo.css" rel="stylesheet">
+    <link href="CSS/country-info.css" rel="stylesheet">
     <link href="CSS/donut-chart.css" rel="stylesheet">
     <link href="CSS/amount-bart-chart.css" rel="stylesheet">
 </head>
 <body>
-    <div id="wrapper">
-        <div class="overlay"></div>
+<div id="wrapper">
+    <div class="overlay"></div>
 
-        <!-- Sidebar -->
-        <div id="nav-placeholder"></div>
+    <!-- Sidebar -->
+    <div id="nav-placeholder"></div>
 
-        <!-- Page Content -->
-        <div id="page-content-wrapper">
-            <button type="button" id="test" class="hamburger is-closed" data-toggle="offcanvas">
-                <span class="hamb-top"></span>
-                <span class="hamb-middle"></span>
-                <span class="hamb-bottom"></span>
-            </button>
-            <div id="title-wrapper" class="row">
-                <p id="title"></p>
+    <!-- Page Content -->
+    <div id="page-content-wrapper">
+        <button type="button" id="test" class="hamburger is-closed" data-toggle="offcanvas">
+            <span class="hamb-top"></span>
+            <span class="hamb-middle"></span>
+            <span class="hamb-bottom"></span>
+        </button>
+        <div id="title-wrapper" class="row">
+            <p id="title"></p>
+        </div>
+        <!-- Large button group -->
+        <div class="row" id="filter-input">
+            <div class="dropdown btn-group">
+                <button class="btn btn-default btn-sm dropdown-toggle" id="dropdown-year-btn" type="button"
+                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Jaar<span
+                        class="caret"></span>
+                </button>
+                <ul id="dropdown-year" class="dropdown-menu">
+                </ul>
             </div>
-            <!-- Large button group -->
-            <div id="search-info" class="row">
-                <div class="col-sm-6">
-                    <div class="dropdown btn-group">
-                        <button class="btn btn-default btn-sm dropdown-toggle" id="dropdown-year" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></button>
-                        <ul class="dropdown-menu">
-                            <li><a href="#">2013-2014</a></li>
-                            <li><a href="#">2014-2015</a></li>
-                            <li><a href="#">2015-2016</a></li>
-                            <li><a href="#">2016-2017</a></li>
-                            <li><a href="#">2017-2018</a></li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="col-sm-6">
-                    <div id="imaginary_container">
-                        <div class="input-group stylish-input-group">
-                            <input type="text" class="form-control"  id="search-country">
-                            <span class="input-group-addon">
-                                <button type="submit">
-                                    <span class="glyphicon glyphicon-search"></span>
-                                </button>
-                            </span>
-                        </div>
-                    </div>
-                </div>
+            <div class="dropdown btn-group">
+                <select id="dropdown-country" class="selectpicker" title="Land" data-selected-text-format="static"
+                        data-live-search="true">
+                </select>
             </div>
-
-            <div class="row">
-                <div class="col-lg-4">
-                    <div id="donut-chart"></div>
-                </div>
-                <div class="col-lg-8">
-                    <div id="bar-chart-amount"></div>
-                </div>
+            <div class="btn-group">
+                <button id="deleteFilters" type="button" title="Verwijder de gebruikte filters" class="icons">
+                    <span class="glyphicon glyphicon-remove"></span>
+                </button>
             </div>
         </div>
-
+        <div class="row inputrow">
+            <input id="tags" data-role="tagsinput"/>
+        </div>
+        <div class="row">
+            <div class="col-lg-4">
+                <div id="donut-chart"></div>
+            </div>
+            <div class="col-lg-8">
+                <div id="bar-chart-amount"></div>
+            </div>
+        </div>
     </div>
 
-    <script>
-        const url = new URL(window.location.href);
-        const year = url.searchParams.get("year");
-        const country = url.searchParams.get("country");
-        const iso = url.searchParams.get("iso");
+</div>
 
-        $("#title").html("Studenten informatie over " + country);
-        $("#dropdown-year").html( year + '   <span class="caret"></span>');
-
-        $("#search-country").attr("placeholder", country).val("").focus().blur();
-
-        $(function(){
-            $("#nav-placeholder").load("nav.html");
-        });
-    </script>
-    <script src="Javascript/donut-chart.js"></script>
-    <script src="Javascript/bar-chart-amount.js"></script>
+<script>
+    $(function () {
+        $("#nav-placeholder").load("nav.html");
+    });
+</script>
+<script src="Javascript/country-info.js"></script>
+<script src="Javascript/donut-chart.js"></script>
+<script src="Javascript/bar-chart-amount.js"></script>
 </body>
 </html>

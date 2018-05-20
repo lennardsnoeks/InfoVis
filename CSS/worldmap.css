@@ -82,7 +82,6 @@
 
 #tags {
     background-color: #fcfcfc !important;
-    width: 50%;
     text-align: center;
 }
 
@@ -116,21 +115,3 @@
 .bootstrap-select>.dropdown-toggle.bs-placeholder, .bootstrap-select>.dropdown-toggle.bs-placeholder:active, .bootstrap-select>.dropdown-toggle.bs-placeholder:focus, .bootstrap-select>.dropdown-toggle.bs-placeholder:hover {
     color: black !important;
 }
-
-/*#slider label {
-    position: absolute;
-    width: 20px;
-    margin-left: -10px;
-    text-align: center;
-    margin-top: 20px;
-}
-
-#slider-wrapper {
-    margin-top: 25px;
-}
-
-#slider {
-    margin-left: auto;
-    margin-right: auto;
-    width: 60%;
-}*/

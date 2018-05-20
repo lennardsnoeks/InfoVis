@@ -1,8 +1,13 @@
 let yearsArray = [];
 let typesArray = [];
 let fieldsArray = [];
+let year = "";
 
 $(document).ready(function() {
+    $('#tags').tagsinput('add', "Alle jaren");
+    $('#tags').tagsinput('add', "Elk type opleiding");
+    $('#tags').tagsinput('add', "Alle opleidingen");
+
     // Dynamically fill years
     $.get('http://localhost:3000/years', {}, function (data) {
         let items = [];
@@ -26,7 +31,6 @@ $(document).ready(function() {
     });
 
     // Dynamically fill fields
-    $('#dropdown-edu').append('<option>1</option>');
     $.get('http://localhost:3000/fields', {}, function (data) {
         let items = [];
 
@@ -43,32 +47,40 @@ $(document).ready(function() {
     $("#filter-input").on("click", "#dropdown-year li", function(){
         $('#tags').tagsinput('add', $(this).text());
         yearsArray.push($(this).text());
+        $('#tags').tagsinput('remove', "Alle jaren");
+        year = $(this).text();
+
         fillWorldmap();
     });
 
     $("#filter-input").on("click", "#dropdown-sort-edu li", function(){
         $('#tags').tagsinput('add', $(this).text());
         typesArray.push($(this).text());
+        $('#tags').tagsinput('remove', "Elk type opleiding");
+
         fillWorldmap();
     });
 
     $('#dropdown-edu').change(function(){
         $('#tags').tagsinput('add', $(this).val());
         fieldsArray.push($(this).val());
+        $('#tags').tagsinput('remove', "Alle opleidingen");
+
         fillWorldmap();
-    });
-
-    // Initiate the retrieval of data
-    $('#searchFilters').on('click', function() {
-
     });
 
     // Delete the tags and filters, reset the original data
     $('#deleteFilters').on('click', function() {
         $('#tags').tagsinput('removeAll');
+        $('#tags').tagsinput('add', "Alle jaren");
+        $('#tags').tagsinput('add', "Elk type opleiding");
+        $('#tags').tagsinput('add', "Alle opleidingen");
+
         yearsArray = [];
         typesArray = [];
         fieldsArray = [];
+
+        year = "Alle jaren";
 
         fillWorldmap();
     });
@@ -177,10 +189,11 @@ function createMap(dataset) {
         },
         done: function(datamap) {
             datamap.svg.selectAll('.datamaps-subunit').on('click', function(geography) {
-                if(amount !== 0) {
+                if(parseInt(amount) !== 0) {
                     window.location.href = "http://localhost:63342/InfoVis/countryinfo.html?"
                         + "iso=" + geography.properties.iso
                         + "&country=" + geography.properties.name
+                        + "&year=" + year
                 }
             });
 
