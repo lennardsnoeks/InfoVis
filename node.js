@@ -43,6 +43,18 @@ app.get('/worldmap', function(req, res){
 });
 
 // COUNTRY PAGE
+app.get('/country/all', function(req, res){
+    let sql = 'SELECT DISTINCT land FROM dataset';
+
+    db.all(sql, [],(err, rows) => {
+        if (err) {
+            throw err;
+        }
+
+        res.send(JSON.parse(JSON.stringify(rows))); //replace with your data
+    });
+});
+
 app.get('/country/:iso', function(req, res){
     let iso = req.params.iso;
     let sql = 'SELECT type, COUNT(*) as amount FROM dataset WHERE iso = ? GROUP BY type';
