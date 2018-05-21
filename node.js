@@ -44,7 +44,7 @@ app.get('/worldmap', function(req, res){
 
 // COUNTRY PAGE
 app.get('/country/all', function(req, res){
-    let sql = 'SELECT DISTINCT land FROM dataset';
+    let sql = 'SELECT DISTINCT land, iso FROM dataset';
 
     db.all(sql, [],(err, rows) => {
         if (err) {
@@ -55,8 +55,19 @@ app.get('/country/all', function(req, res){
     });
 });
 
-app.get('/countryiso/all', function(req, res){
-    let sql = 'SELECT DISTINCT iso FROM dataset';
+app.get('/countrytype', function(req, res){
+    let iso = req.query.iso;
+    let years = req.query.years;
+    let items = [];
+
+    let sql_years = "1=1";
+
+    if(years.length > 0) {
+        items = years.split(",");
+        sql_years = 'inschrijving IN ' + '("' + items.join('","') + '")';
+    }
+
+    let sql = 'SELECT type, COUNT(*) as amount FROM dataset WHERE iso = "' + iso + '" AND ' + sql_years + ' GROUP BY type';
 
     db.all(sql, [],(err, rows) => {
         if (err) {
@@ -67,38 +78,23 @@ app.get('/countryiso/all', function(req, res){
     });
 });
 
-app.get('/countryname/:name', function(req, res) {
-   let name = req.params.name;
-   let sql = 'SELECT iso FROM dataset WHERE land = ?';
+app.get('/countryfields', function(req, res){
+    let iso = req.query.iso;
+    let type = req.query.type;
+    let years = req.query.years;
+    let items = [];
 
-    db.all(sql, [name],(err, rows) => {
-        if (err) {
-            throw err;
-        }
+    let sql_years = "1=1";
 
-        res.send(JSON.parse(JSON.stringify(rows))); //replace with your data
-    });
-});
+    if(years.length > 0) {
+        items = years.split(",");
+        sql_years = 'inschrijving IN ' + '("' + items.join('","') + '")';
+    }
 
-app.get('/country/:iso', function(req, res){
-    let iso = req.params.iso;
-    let sql = 'SELECT type, COUNT(*) as amount FROM dataset WHERE iso = ? GROUP BY type';
+    let sql = 'SELECT opleiding, COUNT(*) as amount FROM dataset WHERE iso = "' + iso + '" AND type = "'
+        + type + '" AND ' + sql_years + ' GROUP BY opleiding ORDER BY COUNT(*) DESC';
 
-    db.all(sql, [iso],(err, rows) => {
-        if (err) {
-            throw err;
-        }
-
-        res.send(JSON.parse(JSON.stringify(rows))); //replace with your data
-    });
-});
-
-app.get('/country/:iso/:type', function(req, res){
-    let iso = req.params.iso;
-    let type = req.params.type;
-    let sql = 'SELECT opleiding, COUNT(*) as amount FROM dataset WHERE iso = ? AND type = ? GROUP BY opleiding ORDER BY COUNT(*) DESC';
-
-    db.all(sql, [iso, type],(err, rows) => {
+    db.all(sql, [],(err, rows) => {
         if (err) {
             throw err;
         }

@@ -1,7 +1,6 @@
 let yearsArray = [];
 let typesArray = [];
 let fieldsArray = [];
-let year = "";
 
 $(document).ready(function() {
     $('#tags').tagsinput('add', "Alle jaren");
@@ -46,25 +45,36 @@ $(document).ready(function() {
     // are used to retrieve the data
     $("#filter-input").on("click", "#dropdown-year li", function(){
         $('#tags').tagsinput('add', $(this).text());
-        yearsArray.push($(this).text());
         $('#tags').tagsinput('remove', "Alle jaren");
-        year = $(this).text();
+
+        let year = $(this).text();
+        if($.inArray(year, yearsArray) == -1) {
+            yearsArray.push(year);
+        }
 
         fillWorldmap();
     });
 
     $("#filter-input").on("click", "#dropdown-sort-edu li", function(){
         $('#tags').tagsinput('add', $(this).text());
-        typesArray.push($(this).text());
         $('#tags').tagsinput('remove', "Elk type opleiding");
+
+        let type = $(this).text();
+        if($.inArray(type, typesArray) == -1) {
+            typesArray.push(type);
+        }
 
         fillWorldmap();
     });
 
     $('#dropdown-edu').change(function(){
         $('#tags').tagsinput('add', $(this).val());
-        fieldsArray.push($(this).val());
         $('#tags').tagsinput('remove', "Alle opleidingen");
+
+        let field = $(this).text();
+        if($.inArray(field, fieldsArray) == -1) {
+            fieldsArray.push(field);
+        }
 
         fillWorldmap();
     });
@@ -80,30 +90,30 @@ $(document).ready(function() {
         typesArray = [];
         fieldsArray = [];
 
-        year = "Alle jaren";
-
         fillWorldmap();
     });
 
     $('#tags').on('itemRemoved', function(event) {
-        let index = $.inArray(event.item, yearsArray);
-        if(index !== -1) {
-            yearsArray.splice(index, 1);
-        }
-        index = $.inArray(event.item, typesArray);
-        if(index !== -1) {
-            typesArray.splice(index, 1);
-        }
-        index = $.inArray(event.item, fieldsArray);
-        if(index !== -1) {
-            fieldsArray.splice(index, 1);
-        }
-
-        fillWorldmap();
+        removeTag(event.item, yearsArray, "Alle jaren");
+        removeTag(event.item, typesArray, "Elk type opleiding");
+        removeTag(event.item, fieldsArray, "Alle opleidingen");
     });
 
     fillWorldmap();
 });
+
+function removeTag(item, array, defaultTag) {
+    let index = $.inArray(item, array);
+    if(index !== -1) {
+        array.splice(index, 1);
+
+        if(array.length == 0) {
+            $('#tags').tagsinput('add', defaultTag);
+        }
+
+        fillWorldmap();
+    }
+}
 
 function fillWorldmap() {
     let apiCall = 'http://localhost:3000/worldmap?';
@@ -190,10 +200,9 @@ function createMap(dataset) {
         done: function(datamap) {
             datamap.svg.selectAll('.datamaps-subunit').on('click', function(geography) {
                 if(parseInt(amount) !== 0) {
-                    window.location.href = "http://localhost:63342/InfoVis/countryinfo.html?"
+                    window.location.href = "http://localhost:63342/Project_Info_Vis/countryinfo.html?"
                         + "iso=" + geography.properties.iso
-                        + "&country=" + geography.properties.name
-                        + "&year=" + year
+                        + "&years=" + yearsArray.join()
                 }
             });
 

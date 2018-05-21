@@ -12,22 +12,21 @@ let xScaleBarChart = d3.scaleBand()
 let yScaleBarChart = d3.scaleLinear()
     .range([heightBarChart, 0]);
 
-function updateBarChart(type, iso) {
-    let color = d3.scaleOrdinal(d3.schemeCategory10);
-
-    d3.select("#bar-chart").remove();
+function updateBarChart(type, iso, yearsArray) {
+    d3.select("#bar-chart-id").remove();
 
     // append the svg object to the body of the page
     // append a 'group' element to 'svg'
     // moves the 'group' element to the top left margin
-    let svgBarChart = d3.select("#bar-chart-amount").append("svg")
-        .attr("id","bar-chart")
+    let svgBarChart = d3.select("#bar-chart-amount")
+        .append("svg")
+        .attr("id","bar-chart-id")
         .attr("width", widthBarChart + margin.left + margin.right)
         .attr("height", heightBarChart + margin.top + margin.bottom)
         .append("g")
         .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
-    $.get('http://localhost:3000/country/' + iso + "/" + type, {}, function (data) {
+    $.get('http://localhost:3000/countryfields?iso=' + iso + "&type=" + type + "&years=" + yearsArray.toString(), {}, function (data) {
         // Scale the range of the data in the domains
         xScaleBarChart.domain(data.map(function (d) {
             return d.opleiding;
@@ -53,15 +52,18 @@ function updateBarChart(type, iso) {
             .attr("height", function (d) {
                 return heightBarChart - yScaleBarChart(d.amount);
             })
+            .attr('fill', color(type))
             .on("mousemove", function (d) {
-                d3.select(this).attr("fill", "#588C73");
-                tooltip
-                    .style("left", d3.event.pageX - 50 + "px")
+                tooltip.style("left", d3.event.pageX - 50 + "px")
                     .style("top", d3.event.pageY - 70 + "px")
                     .style("display", "inline-block")
                     .html(d.opleiding + ": " +d.amount);
             })
+            .on("mouseover", function(d, i) {
+                d3.select(this).style("fill", hovercolor(type));
+            })
             .on("mouseout", function (d, i) {
+                d3.select(this).style("fill", color(type));
                 tooltip.style("display", "none");
             });
 
@@ -77,29 +79,6 @@ function updateBarChart(type, iso) {
         svgBarChart.append("g")
             .attr("class", "axis")
             .call(d3.axisLeft(yScaleBarChart));
-
-        if (type === "Doctoraat") {
-            $(".bar").css("fill", "rgb(31, 119, 180)");
-            $(".bar").mouseover(function () {
-                $(this).css("fill", "rgb(143, 187, 217)")
-            }).mouseout(function () {
-                $(this).css("fill", "rgb(31, 119, 180)")
-            });
-        } else if (type === "Exchange") {
-            $(".bar").css("fill", "rgb(255, 127, 14)");
-            $(".bar").mouseover(function () {
-                $(this).css("fill", "rgb(255, 191, 134)")
-            }).mouseout(function () {
-                $(this).css("fill", "rgb(255, 127, 14)")
-            });
-        } else if (type === "Master") {
-            $(".bar").css("fill", "rgb(44, 160, 44)");
-            $(".bar").mouseover(function () {
-                $(this).css("fill", "rgb(149, 207, 149)")
-            }).mouseout(function () {
-                $(this).css("fill", "rgb(44, 160, 44)")
-            });
-        }
     });
 }
 

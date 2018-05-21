@@ -5,12 +5,26 @@ let height = 250;
 let thickness = 50;
 
 let radius = Math.min(width, height) / 2;
-let color = d3.scaleOrdinal(d3.schemeCategory10);
 
-function drawDonut(iso) {
-    $.get('http://localhost:3000/country/' + iso, {}, function (data) {
+let color = d3.scaleOrdinal()
+    .domain(["Master", "Doctoraat", "Exchange"])
+    .range(["#65C400" , "#2290EE" , "#FF3300"]);
+
+let hovercolor = d3.scaleOrdinal()
+    .domain(["Master", "Doctoraat", "Exchange"])
+    .range(["#C1FF80" , "#A0CFF8" , "#FF8566"]);
+
+function drawVisualisation(iso, yearsArray) {
+    drawDonut(iso, yearsArray);
+}
+
+function drawDonut(iso, yearsArray) {
+    d3.select("#donut-chart-id").remove();
+
+    $.get('http://localhost:3000/countrytype?iso=' + iso + '&years=' + yearsArray.toString(), {}, function (data) {
         let svg = d3.select("#donut-chart")
             .append('svg')
+            .attr("id","donut-chart-id")
             .attr('class', 'pie')
             .attr('width', width)
             .attr('height', height);
@@ -53,24 +67,26 @@ function drawDonut(iso) {
             .on("mouseout", function(d) {
                 d3.select(this)
                     .style("cursor", "none")
-                    .style("fill", color(this._current))
+                    .style("fill", color(d.data.type))
                     .select(".text-group").remove();
             })
             .on("click", function(d) {
-                updateBarChart(d.data.type, iso);
+                updateBarChart(d.data.type, iso, yearsArray);
             })
             .append('path')
             .attr('d', arc)
-            .attr('fill', (d,i) => color(i))
+            .attr('fill', function(d, i) {
+                return color(d.data.type);
+            })
             .on("mouseover", function(d) {
                 d3.select(this)
                     .style("cursor", "pointer")
-                    .style("fill", "lightgray");
+                    .style("fill", hovercolor(d.data.type));
             })
             .on("mouseout", function(d) {
                 d3.select(this)
                     .style("cursor", "none")
-                    .style("fill", color(this._current));
+                    .style("fill", color(d.data.type));
             })
             .each(function(d, i) { this._current = i; });
 
@@ -93,7 +109,7 @@ function drawDonut(iso) {
             .attr("width", 10)
             .attr("height", 10)
             .attr("fill", function(d, i) {
-                return color(i);
+                return color(d.data.type);
             });
 
         legendG.append("text")
@@ -103,5 +119,7 @@ function drawDonut(iso) {
             .style("font-size", 12)
             .attr("y", -5)
             .attr("x", -328);
+
+        updateBarChart(data[0]['type'], iso, yearsArray);
     });
 }
