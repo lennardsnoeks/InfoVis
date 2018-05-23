@@ -1,6 +1,6 @@
 let text = "";
 
-let width = 500;
+let width = 450;
 let height = 250;
 let thickness = 50;
 
@@ -16,6 +16,7 @@ let hovercolor = d3.scaleOrdinal()
 
 function drawVisualisation(iso, yearsArray) {
     drawDonut(iso, yearsArray);
+    drawEvolution(iso);
 }
 
 function drawDonut(iso, yearsArray) {

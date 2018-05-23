@@ -1,9 +1,9 @@
 let tooltip = d3.select("body").append("div").attr("class", "toolTip");
 
 // set the dimensions and margins of the graph
-let margin = {top: 20, right: 20, bottom: 60, left: 40},
-    widthBarChart = 960 - margin.left - margin.right,
-    heightBarChart = 450 - margin.top - margin.bottom;
+let margin = {top: 20, right: 20, bottom: 90, left: 40},
+    widthBarChart = 900 - margin.left - margin.right,
+    heightBarChart = 400 - margin.top - margin.bottom;
 
 // set the ranges
 let xScaleBarChart = d3.scaleBand()

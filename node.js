@@ -44,7 +44,7 @@ app.get('/worldmap', function(req, res){
 
 // COUNTRY PAGE
 app.get('/country/all', function(req, res){
-    let sql = 'SELECT DISTINCT land, iso FROM dataset';
+    let sql = 'SELECT DISTINCT land, iso FROM dataset ORDER BY land ASC';
 
     db.all(sql, [],(err, rows) => {
         if (err) {
@@ -106,6 +106,34 @@ app.get('/countryfields', function(req, res){
 // Get all available years
 app.get('/years', function(req, res){
     let sql = 'SELECT DISTINCT inschrijving years FROM dataset';
+
+    db.all(sql, [],(err, rows) => {
+        if (err) {
+            throw err;
+        }
+
+        res.send(JSON.parse(JSON.stringify(rows))); //replace with your data
+    });
+});
+
+// Get count for each year for certain country
+app.get('/amountyears/:iso', function(req, res) {
+    let iso = req.params.iso;
+
+    let sql = 'SELECT inschrijving as year, COUNT(*) as amount FROM dataset WHERE iso = ? GROUP BY year';
+
+    db.all(sql, [iso],(err, rows) => {
+        if (err) {
+            throw err;
+        }
+
+        res.send(JSON.parse(JSON.stringify(rows))); //replace with your data
+    });
+});
+
+// Get count for each year for certain country
+app.get('/amountyearsworld', function(req, res) {
+    let sql = 'SELECT inschrijving as year, COUNT(*) as amount FROM dataset GROUP BY year';
 
     db.all(sql, [],(err, rows) => {
         if (err) {

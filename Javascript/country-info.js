@@ -42,8 +42,8 @@ $(document).ready(function() {
         let items = [];
 
         $.each(data, function (i, item) {
-            if(item['iso'] == iso) {
-                $("#title").html("Studenten informatie over " + item["land"]);
+            if(item['iso'] === iso) {
+                //$("#title").html("Studenten informatie over " + item["land"]);
             }
 
             items.push("<option value='" + item["iso"] + "'>" + item["land"] + "</option>");
@@ -69,8 +69,8 @@ $(document).ready(function() {
     $('#dropdown-country').change(function(){
         iso = $(this).val();
 
-        let text =$("#dropdown-country option:selected").text();
-        $("#title").html("Studenten informatie over " + text);
+        //let text =$("#dropdown-country option:selected").text();
+        //$("#title").html("Studenten informatie over " + text);
 
         drawVisualisation(iso, yearsArray);
     });
@@ -89,7 +89,7 @@ $(document).ready(function() {
         if(index !== -1) {
             yearsArray.splice(index, 1);
 
-            if(yearsArray.length == 0) {
+            if(yearsArray.length === 0) {
                 $('#tags').tagsinput('add', "Alle jaren");
             }
 

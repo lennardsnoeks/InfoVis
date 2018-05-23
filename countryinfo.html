@@ -29,11 +29,12 @@
 
     <!-- Self defined files -->
     <script src="Javascript/sidebar.js"></script>
-    <link href="CSS/homepage.css" rel="stylesheet">
     <link href="CSS/worldmap.css" rel="stylesheet">
+    <link href="CSS/sidebar.css" rel="stylesheet">
     <link href="CSS/country-info.css" rel="stylesheet">
     <link href="CSS/donut-chart.css" rel="stylesheet">
     <link href="CSS/amount-bart-chart.css" rel="stylesheet">
+    <link href="CSS/evolution-graph.css" rel="stylesheet">
 </head>
 <body>
 <div id="wrapper">
@@ -50,11 +51,17 @@
             <span class="hamb-bottom"></span>
         </button>
         <div id="title-wrapper" class="row">
-            <p id="title"></p>
+            <p id="title">Studenten informatie over </p>
+            <div class="dropdown btn-group" id="dropdown-year-country">
+                <select id="dropdown-country" name="ddc" class="selectpicker" data-live-search="true">
+                </select>
+            </div>
         </div>
-        <!-- Large button group -->
+        <div class="row">
+            <p class="subtitle">Verdeling</p>
+        </div>
         <div class="row" id="filter-input">
-            <div class="dropdown btn-group">
+            <div class="dropdown">
                 <button class="btn btn-default btn-sm dropdown-toggle" id="dropdown-year-btn" type="button"
                         data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Jaar<span
                         class="caret"></span>
@@ -62,11 +69,7 @@
                 <ul id="dropdown-year" class="dropdown-menu">
                 </ul>
             </div>
-            <div class="dropdown btn-group">
-                <select id="dropdown-country" name="ddc" class="selectpicker" data-live-search="true">
-                </select>
-            </div>
-            <div class="btn-group">
+            <div>
                 <button id="deleteFilters" type="button" title="Verwijder de gebruikte filters" class="icons">
                     <span class="glyphicon glyphicon-remove"></span>
                 </button>
@@ -76,12 +79,18 @@
             <input id="tags" data-role="tagsinput"/>
         </div>
         <div class="row">
-            <div class="col-lg-4">
+            <div class="col-lg-5">
                 <div id="donut-chart"></div>
             </div>
-            <div class="col-lg-8">
+            <div class="col-lg-7">
                 <div id="bar-chart-amount"></div>
             </div>
+        </div>
+        <div class="row">
+            <p class="subtitle">Evolutie</p>
+        </div>
+        <div class="row">
+            <div id="evolution-chart"></div>
         </div>
     </div>
 
@@ -95,5 +104,6 @@
 <script src="Javascript/donut-chart.js"></script>
 <script src="Javascript/country-info.js"></script>
 <script src="Javascript/bar-chart-amount.js"></script>
+<script src="Javascript/evolution-line-graph.js"></script>
 </body>
 </html>

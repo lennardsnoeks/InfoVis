@@ -137,6 +137,8 @@ function fillWorldmap() {
 
         let sum = d3.sum(data, function(d){return parseFloat(d.amount);});
 
+        $('#amount').html('<b>Aantal:</b>  ' + sum);
+
         let paletteScale = d3.scale.linear()
             .domain([0, max])
             .range(["#ffffff", "#ff0006"]);
@@ -200,7 +202,7 @@ function createMap(dataset) {
         done: function(datamap) {
             datamap.svg.selectAll('.datamaps-subunit').on('click', function(geography) {
                 if(parseInt(amount) !== 0) {
-                    window.location.href = "http://localhost:63342/Project_Info_Vis/countryinfo.html?"
+                    window.location.href = "http://localhost:63342/InfoVis/countryinfo.html?"
                         + "iso=" + geography.properties.iso
                         + "&years=" + yearsArray.join()
                 }

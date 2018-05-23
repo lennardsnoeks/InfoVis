@@ -1,9 +1,8 @@
 #worldmap {
     width: 100%;
-    height: 600px;
     margin-left: auto;
     margin-right: auto;
-    position: absolute !important;
+    position: relative !important;
     padding-bottom: 40% !important;
     padding-top: 35px;
 }
@@ -11,6 +10,11 @@
 .row {
     margin-left: 0;
     margin-right: 0;
+}
+
+#amount {
+    margin-top: 8px;
+    margin-left: 30px;
 }
 
 #title-wrapper {
@@ -67,6 +71,21 @@
     border-style: solid;
     outline: none;
 }
+.subtitle {
+    font-size: 1.5em;
+    margin-left: auto;
+    margin-right: auto;
+    width: 90%;
+    border-bottom: 1px solid #ddd;
+}
+
+#filter-input {
+    margin-left: auto;
+    margin-right: auto;
+    width: 90%;
+    display: flex;
+    justify-content: left;
+}
 
 .filter-option {
     text-align: center !important;
@@ -82,7 +101,6 @@
 
 #tags {
     background-color: #fcfcfc !important;
-    text-align: center;
 }
 
 #deleteFilters {
@@ -105,7 +123,7 @@
     margin-left: auto !important;
     margin-right: auto !important;
     display: block !important;
-    width: 50% !important;
+    width: 90% !important;
     margin-top: 5px !important;
     border: 0 !important;
     box-shadow: none !important;

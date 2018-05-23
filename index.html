@@ -15,7 +15,15 @@
     <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
 
     <!-- D3 -->
-    <script src="//cdnjs.cloudflare.com/ajax/libs/d3/3.5.3/d3.min.js"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/4.10.0/d3.min.js"></script>
+    <script>
+        d3version4 = d3;
+        window.d3 = null;
+    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.3/d3.min.js"></script>
+
+    <!--<script src="//cdnjs.cloudflare.com/ajax/libs/d3/3.5.3/d3.min.js"></script>-->
     <script src="//cdnjs.cloudflare.com/ajax/libs/topojson/1.6.9/topojson.min.js"></script>
 
     <!-- Bootstrap select -->
@@ -32,6 +40,7 @@
     <script src="Javascript/datamaps-zoomto.min.js"></script>
     <script src="Javascript/sidebar.js"></script>
     <link href="CSS/homepage.css" rel="stylesheet">
+    <link href="CSS/sidebar.css" rel="stylesheet">
     <link href="CSS/worldmap.css" rel="stylesheet">
 </head>
 <body>
@@ -51,39 +60,49 @@
         <div id="title-wrapper" class="row">
             <p id="title">Inschrijvingen van buitenlandse studenten aan de UHasselt</p>
         </div>
+        <div class="row">
+            <p class="subtitle">Wereldkaart</p>
+        </div>
         <div id="worldmap-nav" class="tab-pane fade in active">
             <div class="row" id="filter-input">
-                <div class="dropdown btn-group">
+                <div class="dropdown">
                     <button class="btn btn-default btn-sm dropdown-toggle" id="dropdown-year-btn" type="button"
                             data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Jaar<span
                             class="caret"></span></button>
                     <ul id="dropdown-year" class="dropdown-menu">
-
                     </ul>
                 </div>
-                <div class="dropdown btn-group">
+                <div class="dropdown">
                     <button class="btn btn-default btn-sm dropdown-toggle" id="dropdown-sort-edu-btn" type="button"
                             data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Type opleiding<span
                             class="caret"></span></button>
                     <ul id="dropdown-sort-edu" class="dropdown-menu">
-
                     </ul>
                 </div>
-                <div class="dropdown btn-group">
+                <div class="dropdown">
                     <select id="dropdown-edu" class="selectpicker" title="Opleiding" data-selected-text-format="static"
                             data-live-search="true">
                     </select>
                 </div>
-                <div class="btn-group">
+                <div>
                     <button id="deleteFilters" type="button" title="Verwijder de gebruikte filters" class="icons">
                         <span class="glyphicon glyphicon-remove"></span>
                     </button>
+                </div>
+                <div class="btn-group">
+                    <p id="amount"></p>
                 </div>
             </div>
             <div class="row inputrow">
                 <input id="tags" data-role="tagsinput"/>
             </div>
             <div id="worldmap" class="row"></div>
+            <div class="row">
+                <p class="subtitle">Evolutie</p>
+            </div>
+            <div class="row">
+                <div id="evolution-chart"></div>
+            </div>
         </div>
     </div>
     <!-- /#page-content-wrapper -->
@@ -97,5 +116,6 @@
     });
 </script>
 <script src="Javascript/filter-map.js"></script>
+<script src="Javascript/evolution-line-graph-world.js"></script>
 </body>
 </html>
