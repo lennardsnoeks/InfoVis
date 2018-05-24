@@ -183,6 +183,10 @@
     font-size: 2em;
 }
 
+.percentage {
+    font-size: 0.7em;
+}
+
 #growth-total-wrapper {
     margin-left: 60px;
 }

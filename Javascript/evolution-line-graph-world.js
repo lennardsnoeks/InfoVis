@@ -35,47 +35,68 @@ function drawEvolution(typesArray) {
 
     $.get('http://localhost:3000/amountyearsworldtype?types=' + typesArray.toString(), {}, function (data) {
         let amountYears = 0;
+        let totalAmount = 0;
+
         data.forEach(function (d) {
             amountYears++;
             d.year = parseTime(d.year.split("-")[0]);
             d.amount = +d.amount;
+            totalAmount += d.amount;
         });
 
         let growthAnnual, growthTotal;
+        let lastYearAmount, previousYearAmount;
 
         if(amountYears > 1) {
             // Calculate percentage growth of all years and versus previous year
-            let differenceTotal, differenceAnnual;
-            let firstYearAmount, lastYearAmount, previousYearAmout;
+            let differenceTotal, differenceAnnual, firstYearAmount;
 
             firstYearAmount = parseInt(data[0].amount);
             lastYearAmount = parseInt(data[amountYears - 1].amount);
-            previousYearAmout = parseInt(data[amountYears - 2].amount);
+            previousYearAmount = parseInt(data[amountYears - 2].amount);
 
-            differenceAnnual = (lastYearAmount - previousYearAmout);
-            growthAnnual = (differenceAnnual / previousYearAmout) * 100;
+            differenceAnnual = (lastYearAmount - previousYearAmount);
+            growthAnnual = (differenceAnnual / previousYearAmount) * 100;
 
             differenceTotal = (lastYearAmount - firstYearAmount);
             growthTotal = (differenceTotal / firstYearAmount) * 100;
         } else {
             growthTotal = 0;
             growthAnnual = 0;
+            previousYearAmount = 0;
+            lastYearAmount = 0;
         }
+
+        /*if(growthAnnual > 0) {
+            $("#annual-growth").html(previousYearAmount + " (" + Number((growthAnnual).toFixed(1)) + "% <span class='up glyphicon glyphicon-triangle-top'></span>)");
+        } else if(growthAnnual < 0) {
+            $("#annual-growth").html(previousYearAmount + " (" + Number((growthAnnual).toFixed(1)) + "% <span class='down glyphicon glyphicon-triangle-bottom'></span>)");
+        } else {
+            $("#annual-growth").html(previousYearAmount + " (" + Number((growthAnnual).toFixed(1)) + "% <span class='even glyphicon glyphicon-minus'></span>)");
+        }*/
 
         if(growthAnnual > 0) {
-            $("#annual-growth").html(Number((growthAnnual).toFixed(1)) + "% <span class='up glyphicon glyphicon-triangle-top'></span>");
+            $("#annual-growth").html(previousYearAmount + " <span class='percentage' style=\"color: green\">(" + Math.abs(Number((growthAnnual).toFixed(1))) + "%<span class='up glyphicon glyphicon-triangle-top'></span>)</span>");
         } else if(growthAnnual < 0) {
-            $("#annual-growth").html(Number((growthAnnual).toFixed(1)) + "% <span class='down glyphicon glyphicon-triangle-bottom'></span>");
+            $("#annual-growth").html(previousYearAmount + " <span class='percentage' style=\"color: red\">(" + Math.abs(Number((growthAnnual).toFixed(1))) + "%<span class='down glyphicon glyphicon-triangle-bottom'></span>)</span>");
         } else {
-            $("#annual-growth").html(Number((growthAnnual).toFixed(1)) + "% <span class='even glyphicon glyphicon-minus'></span>");
+            $("#annual-growth").html(previousYearAmount + " <span class='percentage' style=\"color: black\">(" + Math.abs(Number((growthAnnual).toFixed(1))) + "%<span class='even glyphicon glyphicon-minus'></span>)</span>");
         }
 
-        if(growthTotal > 0) {
-            $("#total-growth").html(Number((growthTotal).toFixed(1)) + "% <span class='up glyphicon glyphicon-triangle-top'></span>");
+        /*if(growthTotal > 0) {
+            $("#total-growth").html(lastYearAmount + " (" + Number((growthTotal).toFixed(1)) + "% <span class='up glyphicon glyphicon-triangle-top'></span>)");
         } else if(growthTotal < 0) {
-            $("#total-growth").html(Number((growthTotal).toFixed(1)) + "% <span class='down glyphicon glyphicon-triangle-bottom'></span>");
+            $("#total-growth").html(lastYearAmount + " (" + Number((growthTotal).toFixed(1)) + "% <span class='down glyphicon glyphicon-triangle-bottom'></span>)");
         } else {
-            $("#total-growth").html(Number((growthTotal).toFixed(1)) + "% <span class='even glyphicon glyphicon-minus'></span>");
+            $("#total-growth").html(lastYearAmount + " (" + Number((growthTotal).toFixed(1)) + "% <span class='even glyphicon glyphicon-minus'></span>)");
+        }*/
+
+        if(growthTotal > 0) {
+            $("#total-growth").html(totalAmount + " <span class='percentage' style=\"color: green\">(" + Math.abs(Number((growthTotal).toFixed(1))) + "%<span class='up glyphicon glyphicon-triangle-top'></span>)</span>");
+        } else if(growthTotal < 0) {
+            $("#total-growth").html(totalAmount + " <span class='percentage' style=\"color: red\">(" + Math.abs(Number((growthTotal).toFixed(1))) + "%<span class='down glyphicon glyphicon-triangle-bottom'></span>)</span>");
+        } else {
+            $("#total-growth").html(totalAmount + " <span class='percentage' style=\"color: black\">(" + Math.abs(Number((growthTotal).toFixed(1))) + "%<span class='even glyphicon glyphicon-minus'></span>)</span>");
         }
 
         x.domain(d3version4.extent(data, function (d) {
