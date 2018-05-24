@@ -6,13 +6,14 @@ $(document).ready(function() {
     $('#tags').tagsinput('add', "Alle jaren");
     $('#tags').tagsinput('add', "Elk type opleiding");
     $('#tags').tagsinput('add', "Alle opleidingen");
+    $('#tagsEvolution').tagsinput('add', "Elk type opleiding");
 
     // Dynamically fill years
     $.get('http://localhost:3000/years', {}, function (data) {
         let items = [];
 
         $.each(data, function(i, item) {
-            items.push('<li><a href="#">' + item["years"] + '</a></li>');
+            items.push('<li><a href="javascript:void(0)">' + item["years"] + '</a></li>');
         });
 
         $('#dropdown-year').append( items.join('') );
@@ -23,10 +24,11 @@ $(document).ready(function() {
         let items = [];
 
         $.each(data, function(i, item) {
-            items.push('<li><a href="#">' + item["type"] + '</a></li>');
+            items.push('<li><a href="javascript:void(0)">' + item["type"] + '</a></li>');
         });
 
         $('#dropdown-sort-edu').append( items.join('') );
+        $('#dropdown-sort-edu-evo').append( items.join('') );
     });
 
     // Dynamically fill fields
@@ -100,6 +102,41 @@ $(document).ready(function() {
     });
 
     fillWorldmap();
+    drawEvolution(typesArray);
+
+    // Evolution stuff
+
+    // Add tags when user selects them, also add them to internal array. When user clicks search these parameters
+    // are used to retrieve the data
+    $("#filter-input-evolution").on("click", "#dropdown-sort-edu-evo li", function(){
+        $('#tagsEvolution').tagsinput('add', $(this).text());
+        typesArray.push($(this).text());
+        $('#tagsEvolution').tagsinput('remove', "Elk type opleiding");
+
+        drawEvolution(typesArray)
+    });
+
+    $('#tagsEvolution').on('itemRemoved', function(event) {
+        let index = $.inArray(event.item, typesArray);
+        if(index !== -1) {
+            typesArray.splice(index, 1);
+
+            if(typesArray.length === 0) {
+                $('#tagsEvolution').tagsinput('add', "Elk type opleiding");
+            }
+
+            drawEvolution(typesArray)
+        }
+    });
+
+    $('#deleteFiltersEvolution').on('click', function() {
+        $('#tagsEvolution').tagsinput('removeAll');
+        $('#tagsEvolution').tagsinput('add', "Elk type opleiding");
+
+        typesArray = [];
+
+        drawEvolution(typesArray)
+    });
 });
 
 function removeTag(item, array, defaultTag) {
@@ -202,7 +239,7 @@ function createMap(dataset) {
         done: function(datamap) {
             datamap.svg.selectAll('.datamaps-subunit').on('click', function(geography) {
                 if(parseInt(amount) !== 0) {
-                    window.location.href = "http://localhost:63342/InfoVis/countryinfo.html?"
+                    window.location.href = "http://localhost:63344/InfoVis/countryinfo.html?"
                         + "iso=" + geography.properties.iso
                         + "&years=" + yearsArray.join()
                 }

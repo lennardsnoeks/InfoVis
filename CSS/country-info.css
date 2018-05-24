@@ -2,7 +2,7 @@
     background-color: #fcfcfc;
 }
 
-#tags {
+#tagsDivide {
     width: 30% !important;
     text-align: left;
 }
@@ -11,6 +11,11 @@
     display: flex;
     justify-content: center;
     align-items: center;
+}
+
+#evolution-wrapper, #growth {
+    display: flex;
+    justify-content: left;
 }
 
 .inputrow {
@@ -22,7 +27,11 @@
     margin-top: 5px;
 }
 
-#filter-input {
+.bootstrap-tagsinput {
+    margin-top: 0 !important;
+}
+
+#filter-input-divide, #filter-input-evolution{
     margin-left: auto;
     margin-right: auto;
     width: 90%;
@@ -36,4 +45,30 @@
     margin-right: auto;
     width: 90%;
     border-bottom: 1px solid #ddd;
+}
+
+#info-evolution {
+    margin-left: 120px;
+    margin-top: 50px;
+    margin-right: 200px;
+}
+
+.up {
+    color: green;
+}
+
+.down {
+    color: red;
+}
+
+.type-growth {
+    font-size: 1.3em;
+}
+
+#annual-growth, #total-growth {
+    font-size: 2em;
+}
+
+#growth-total-wrapper {
+    margin-left: 20px;
 }

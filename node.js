@@ -78,6 +78,20 @@ app.get('/countrytype', function(req, res){
     });
 });
 
+app.get('/countrytypes/:iso', function(req, res) {
+    let iso = req.params.iso;
+
+    let sql = 'SELECT DISTINCT type FROM dataset WHERE iso = ?';
+
+    db.all(sql, [iso],(err, rows) => {
+        if (err) {
+            throw err;
+        }
+
+        res.send(JSON.parse(JSON.stringify(rows))); //replace with your data
+    });
+});
+
 app.get('/countryfields', function(req, res){
     let iso = req.query.iso;
     let type = req.query.type;
@@ -116,13 +130,43 @@ app.get('/years', function(req, res){
     });
 });
 
-// Get count for each year for certain country
-app.get('/amountyears/:iso', function(req, res) {
-    let iso = req.params.iso;
+app.get('/amountyearscountrytype', function(req, res){
+    let iso = req.query.iso;
+    let types = req.query.types;
+    let items = [];
 
-    let sql = 'SELECT inschrijving as year, COUNT(*) as amount FROM dataset WHERE iso = ? GROUP BY year';
+    let sql_types = "1=1";
 
-    db.all(sql, [iso],(err, rows) => {
+    if(types.length > 0) {
+        items = types.split(",");
+        sql_types = 'type IN ' + '("' + items.join('","') + '")';
+    }
+
+    let sql = 'SELECT inschrijving as year, COUNT(*) as amount FROM dataset WHERE iso = "' + iso + '" AND ' + sql_types + ' GROUP BY year';
+
+    db.all(sql, [],(err, rows) => {
+        if (err) {
+            throw err;
+        }
+
+        res.send(JSON.parse(JSON.stringify(rows))); //replace with your data
+    });
+});
+
+app.get('/amountyearsworldtype', function(req, res){
+    let types = req.query.types;
+    let items = [];
+
+    let sql_types = "1=1";
+
+    if(types.length > 0) {
+        items = types.split(",");
+        sql_types = 'type IN ' + '("' + items.join('","') + '")';
+    }
+
+    let sql = 'SELECT inschrijving as year, COUNT(*) as amount FROM dataset WHERE ' + sql_types + ' GROUP BY year';
+
+    db.all(sql, [],(err, rows) => {
         if (err) {
             throw err;
         }

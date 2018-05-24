@@ -11,8 +11,8 @@
     <link href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/themes/base/jquery-ui.css" rel="stylesheet">
 
     <!-- Bootstrap -->
-    <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
-    <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
     <!-- D3 -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/4.13.0/d3.min.js"></script>
@@ -60,7 +60,7 @@
         <div class="row">
             <p class="subtitle">Verdeling</p>
         </div>
-        <div class="row" id="filter-input">
+        <div class="row" id="filter-input-divide">
             <div class="dropdown">
                 <button class="btn btn-default btn-sm dropdown-toggle" id="dropdown-year-btn" type="button"
                         data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Jaar<span
@@ -70,14 +70,15 @@
                 </ul>
             </div>
             <div>
-                <button id="deleteFilters" type="button" title="Verwijder de gebruikte filters" class="icons">
+                <button id="deleteFiltersDivide" type="button" title="Verwijder de gebruikte filters" class="icons">
                     <span class="glyphicon glyphicon-remove"></span>
                 </button>
             </div>
+            <div class="row inputrow">
+                <input id="tagsDivide" data-role="tagsinput"/>
+            </div>
         </div>
-        <div class="row inputrow">
-            <input id="tags" data-role="tagsinput"/>
-        </div>
+
         <div class="row">
             <div class="col-lg-5">
                 <div id="donut-chart"></div>
@@ -89,8 +90,37 @@
         <div class="row">
             <p class="subtitle">Evolutie</p>
         </div>
-        <div class="row">
-            <div id="evolution-chart"></div>
+        <div class="row" id="filter-input-evolution">
+            <div class="dropdown">
+                <button class="btn btn-default btn-sm dropdown-toggle" id="dropdown-sort-edu-btn" type="button"
+                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Type opleiding<span
+                        class="caret"></span></button>
+                <ul id="dropdown-sort-edu" class="dropdown-menu">
+                </ul>
+            </div>
+            <div>
+                <button id="deleteFiltersEvolution" type="button" title="Verwijder de gebruikte filters" class="icons">
+                    <span class="glyphicon glyphicon-remove"></span>
+                </button>
+            </div>
+            <div class="row inputrow">
+                <input id="tagsEvolution" data-role="tagsinput"/>
+            </div>
+        </div>
+        <div class="row" id="evolution-wrapper">
+            <div id="info-evolution">
+                <div id="growth">
+                    <div id="growth-annual-wrapper">
+                        <p class="type-growth">Afgelopen jaar</p>
+                        <p id="annual-growth"></p>
+                    </div>
+                    <div id="growth-total-wrapper">
+                        <p class="type-growth">Totaal</p>
+                        <p id="total-growth"></p>
+                    </div>
+                </div>
+            </div>
+            <div id="evolution-chart-country"></div>
         </div>
     </div>
 

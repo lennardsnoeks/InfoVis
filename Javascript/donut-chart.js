@@ -16,7 +16,7 @@ let hovercolor = d3.scaleOrdinal()
 
 function drawVisualisation(iso, yearsArray) {
     drawDonut(iso, yearsArray);
-    drawEvolution(iso);
+    drawEvolution(iso, typesArray);
 }
 
 function drawDonut(iso, yearsArray) {

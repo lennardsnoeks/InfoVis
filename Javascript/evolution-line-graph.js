@@ -1,56 +1,173 @@
-function drawEvolution(iso) {
-    d3.select("#evolution-chart-id").remove();
+function drawEvolution(iso, typesArray) {
+    d3.select("#evolution-chart-country-id").remove();
 
-    // set the dimensions and margins of the graph
-    let margin = {top: 20, right: 20, bottom: 30, left: 50},
-        width = 960 - margin.left - margin.right,
-        height = 500 - margin.top - margin.bottom;
+    let margin = {top: 20, right: 80, bottom: 80, left: 40},
+        width = 800 - margin.left - margin.right,
+        height = 400 - margin.top - margin.bottom;
 
-    // parse the date / time
-    /*let parseTime = d3.timeParse("%Y-%Y");*/
-
-    let x = d3.scaleBand().rangeRound([0, width]).padding(0.1),
-        y = d3.scaleLinear().rangeRound([height, 0]);
-
-    // append the svg obgect to the body of the page
-    // appends a 'group' element to 'svg'
-    // moves the 'group' element to the top left margin
-    let svg = d3.select("#evolution-chart")
+    let svg = d3.select("#evolution-chart-country")
         .append("svg")
-        .attr("id", "evolution-chart-id")
+        .attr("id", "evolution-chart-country-id")
         .attr("width", width + margin.left + margin.right)
         .attr("height", height + margin.top + margin.bottom)
         .append("g")
         .attr("transform",
             "translate(" + margin.left + "," + margin.top + ")");
 
-    $.get('http://localhost:3000/amountyears/' + iso, {}, function (data) {
-        // format the data
-        data.forEach(function(d) {
+    let parseTime = d3.timeParse("%Y"),
+    bisectDate = d3.bisector(function (d) {
+        return d.year;
+    }).left;
+
+    let x = d3.scaleTime().range([0, width]);
+    let y = d3.scaleLinear().range([height, 0]);
+
+    let line = d3.line()
+        .x(function (d) {
+            return x(d.year);
+        })
+        .y(function (d) {
+            return y(d.amount);
+        });
+
+    let g = svg.append("g")
+        .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+    $.get('http://localhost:3000/amountyearscountrytype?iso=' + iso + '&types=' + typesArray.toString(), {}, function (data) {
+        let amountYears = 0;
+        data.forEach(function (d) {
+            amountYears++;
+            d.year = parseTime(d.year.split("-")[0]);
             d.amount = +d.amount;
         });
 
-        x.domain(data.map(function(d) { return d.year; }));
-        y.domain([0, d3.max(data, function(d) { return d.amount; })]);
+        let growthAnnual, growthTotal;
 
-        // define the line
-        let valueline = d3.line()
-            .x(function(d) { return x(d.year); })
-            .y(function(d) { return y(d.amount); });
+        if(amountYears > 1) {
+            // Calculate percentage growth of all years and versus previous year
+            let differenceTotal, differenceAnnual;
+            let firstYearAmount, lastYearAmount, previousYearAmout;
 
-        // Add the valueline path.
-        svg.append("path")
-            .data([data])
-            .attr("class", "line")
-            .attr("d", valueline);
+            firstYearAmount = parseInt(data[0].amount);
+            lastYearAmount = parseInt(data[amountYears - 1].amount);
+            previousYearAmout = parseInt(data[amountYears - 2].amount);
 
-        // Add the X Axis
-        svg.append("g")
+            differenceAnnual = (lastYearAmount - previousYearAmout);
+            growthAnnual = (differenceAnnual / previousYearAmout) * 100;
+
+            differenceTotal = (lastYearAmount - firstYearAmount);
+            growthTotal = (differenceTotal / firstYearAmount) * 100;
+        } else {
+            growthTotal = 0;
+            growthAnnual = 0;
+        }
+
+        if(growthAnnual > 0) {
+            $("#annual-growth").html(Number((growthAnnual).toFixed(1)) + "% <span class='up glyphicon glyphicon-triangle-top'></span>");
+        } else if(growthAnnual < 0) {
+            $("#annual-growth").html(Number((growthAnnual).toFixed(1)) + "% <span class='down glyphicon glyphicon-triangle-bottom'></span>");
+        } else {
+            $("#annual-growth").html(Number((growthAnnual).toFixed(1)) + "% <span class='even glyphicon glyphicon-minus'></span>");
+        }
+
+        if(growthTotal > 0) {
+            $("#total-growth").html(Number((growthTotal).toFixed(1)) + "% <span class='up glyphicon glyphicon-triangle-top'></span>");
+        } else if(growthTotal < 0) {
+            $("#total-growth").html(Number((growthTotal).toFixed(1)) + "% <span class='down glyphicon glyphicon-triangle-bottom'></span>");
+        } else {
+            $("#total-growth").html(Number((growthTotal).toFixed(1)) + "% <span class='even glyphicon glyphicon-minus'></span>");
+        }
+
+        x.domain(d3.extent(data, function (d) {
+            return d.year;
+        }));
+        y.domain([0, d3.max(data, function (d) {
+            return d.amount;
+        })]);
+
+        g.append("g")
+            .attr("class", "axis axis--x")
             .attr("transform", "translate(0," + height + ")")
-            .call(d3.axisBottom(x));
+            .call(d3.axisBottom(x).
+            tickFormat(function(date) {
+                return d3.timeFormat('%Y')(date);
+            }).ticks(amountYears));
 
-        // Add the Y Axis
-        svg.append("g")
-            .call(d3.axisLeft(y));
+        g.append("g")
+            .attr("class", "axis axis--y")
+            .call(d3.axisLeft(y).ticks(6).tickFormat(function (d) {
+                return parseInt(d);
+            }))
+            .append("text")
+            .attr("class", "axis-title")
+            .attr("transform", "rotate(-90)")
+            .attr("y", 6)
+            .attr("dy", ".71em")
+            .style("text-anchor", "end")
+            .attr("fill", "#5D6971")
+            .text("Inschrijvingen");
+
+        g.append("path")
+            .datum(data)
+            .attr("class", "line")
+            .attr("d", line);
+
+        let focus = g.append("g")
+            .attr("class", "focus")
+            .style("display", "none");
+
+        focus.append("line")
+            .attr("class", "x-hover-line hover-line")
+            .attr("y1", 0)
+            .attr("y2", height);
+
+        focus.append("line")
+            .attr("class", "y-hover-line hover-line")
+            .attr("x1", width)
+            .attr("x2", width);
+
+        focus.append("circle")
+            .attr("r", 7.5);
+
+        focus.append("text")
+            .attr("x", 15)
+            .attr("dy", ".31em");
+
+        svg.append("rect")
+            .attr("transform", "translate(" + margin.left + "," + margin.top + ")")
+            .attr("class", "overlaychart")
+            .attr("width", width)
+            .attr("height", height)
+            .on("mouseover", function () {
+                focus.style("display", null);
+            })
+            .on("mouseout", function () {
+                focus.style("display", "none");
+            })
+            .on("mousemove", mousemove)
+            .on("click", clicked);
+
+        function mousemove() {
+            let x0 = x.invert(d3.mouse(this)[0]),
+                i = bisectDate(data, x0, 1),
+                d0 = data[i - 1],
+                d1 = data[i],
+                d = x0 - d0.year > d1.year - x0 ? d1 : d0;
+            focus.attr("transform", "translate(" + x(d.year) + "," + y(d.amount) + ")");
+            focus.select("text").text(function () {
+                return d.amount;
+            });
+            focus.select(".x-hover-line").attr("y2", height - y(d.amount));
+            focus.select(".y-hover-line").attr("x2", width + width);
+        }
+
+        function clicked() {
+            let x0 = x.invert(d3.mouse(this)[0]),
+                i = bisectDate(data, x0, 1),
+                d0 = data[i - 1],
+                d1 = data[i],
+                d = x0 - d0.year > d1.year - x0 ? d1 : d0;
+            console.log(d.year + "," + d.amount);
+        }
     });
 }

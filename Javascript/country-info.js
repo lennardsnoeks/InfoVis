@@ -1,4 +1,5 @@
 let yearsArray = [];
+let typesArray = [];
 
 const url = new URL(window.location.href);
 let iso = url.searchParams.get("iso");
@@ -9,10 +10,10 @@ $(document).ready(function() {
     if(years != null && years.length > 0) {
         yearsArray = years.split(",");
         for (let i in yearsArray) {
-            $('#tags').tagsinput('add', yearsArray[i]);
+            $('#tagsDivide').tagsinput('add', yearsArray[i]);
         }
     } else {
-        $('#tags').tagsinput('add', "Alle jaren");
+        $('#tagsDivide').tagsinput('add', "Alle jaren");
     }
 
     // If user navigates with the nav bar to this page, data from first country in database is shown
@@ -21,9 +22,11 @@ $(document).ready(function() {
         $.get('http://localhost:3000/country/all', {} , function (data) {
             iso = data[0]['iso'];
             drawVisualisation(iso, yearsArray);
+            fillDropdownEvolution(iso);
         });
     } else {
         drawVisualisation(iso, yearsArray);
+        fillDropdownEvolution(iso);
     }
 
     // Dynamically fill years
@@ -31,7 +34,7 @@ $(document).ready(function() {
         let items = [];
 
         $.each(data, function (i, item) {
-            items.push('<li><a href="#">' + item["years"] + '</a></li>');
+            items.push('<li><a href="javascript:void(0)">' + item["years"] + '</a></li>');
         });
 
         $('#dropdown-year').append(items.join(''));
@@ -58,10 +61,10 @@ $(document).ready(function() {
 
     // Add tags when user selects them, also add them to internal array. When user clicks search these parameters
     // are used to retrieve the data
-    $("#filter-input").on("click", "#dropdown-year li", function(){
-        $('#tags').tagsinput('add', $(this).text());
+    $("#filter-input-divide").on("click", "#dropdown-year li", function(){
+        $('#tagsDivide').tagsinput('add', $(this).text());
         yearsArray.push($(this).text());
-        $('#tags').tagsinput('remove', "Alle jaren");
+        $('#tagsDivide').tagsinput('remove', "Alle jaren");
 
         drawVisualisation(iso, yearsArray);
     });
@@ -73,27 +76,80 @@ $(document).ready(function() {
         //$("#title").html("Studenten informatie over " + text);
 
         drawVisualisation(iso, yearsArray);
+        fillDropdownEvolution(iso);
     });
 
-    $('#deleteFilters').on('click', function() {
-        $('#tags').tagsinput('removeAll');
-        $('#tags').tagsinput('add', "Alle jaren");
+    $('#deleteFiltersDivide').on('click', function() {
+        $('#tagsDivide').tagsinput('removeAll');
+        $('#tagsDivide').tagsinput('add', "Alle jaren");
 
         yearsArray = [];
 
         drawVisualisation(iso, yearsArray);
     });
 
-    $('#tags').on('itemRemoved', function(event) {
+    $('#tagsDivide').on('itemRemoved', function(event) {
         let index = $.inArray(event.item, yearsArray);
         if(index !== -1) {
             yearsArray.splice(index, 1);
 
             if(yearsArray.length === 0) {
-                $('#tags').tagsinput('add', "Alle jaren");
+                $('#tagsDivide').tagsinput('add', "Alle jaren");
             }
 
             drawVisualisation(iso, yearsArray);
         }
     });
+
+    // EVOLUTION PART OF COUNTRY INFO
+
+    // Add tags when user selects them, also add them to internal array. When user clicks search these parameters
+    // are used to retrieve the data
+    $("#filter-input-evolution").on("click", "#dropdown-sort-edu li", function(){
+        $('#tagsEvolution').tagsinput('add', $(this).text());
+        typesArray.push($(this).text());
+        $('#tagsEvolution').tagsinput('remove', "Elk type opleiding");
+
+        drawEvolution(iso, typesArray)
+    });
+
+    $('#tagsEvolution').on('itemRemoved', function(event) {
+        let index = $.inArray(event.item, typesArray);
+        if(index !== -1) {
+            typesArray.splice(index, 1);
+
+            if(typesArray.length === 0) {
+                $('#tagsEvolution').tagsinput('add', "Elk type opleiding");
+            }
+
+            drawEvolution(iso, typesArray)
+        }
+    });
+
+    $('#deleteFiltersEvolution').on('click', function() {
+        $('#tagsEvolution').tagsinput('removeAll');
+        $('#tagsEvolution').tagsinput('add', "Elk type opleiding");
+
+        typesArray = [];
+
+        drawEvolution(iso, typesArray)
+    });
 });
+
+function fillDropdownEvolution(iso) {
+    $('#tagsEvolution').tagsinput('remove', "Elk type opleiding");
+    $('#tagsEvolution').tagsinput('add', "Elk type opleiding");
+
+    $("#dropdown-sort-edu").empty();
+
+    // Dynamically add types for dropdown evolution
+    $.get('http://localhost:3000/countrytypes/' + iso, {}, function (data) {
+        let items = [];
+
+        $.each(data, function (i, item) {
+            items.push('<li><a href="javascript:void(0)">' + item["type"] + '</a></li>');
+        });
+
+        $('#dropdown-sort-edu').append(items.join(''));
+    });
+}

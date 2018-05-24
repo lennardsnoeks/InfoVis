@@ -48,7 +48,7 @@
     width: 200px;
 }
 
-#dropdown-year-btn, #dropdown-sort-edu-btn {
+#dropdown-year-btn, #dropdown-sort-edu-btn, #dropdown-sort-edu-btn-evo {
     border-color:#ccc;
     box-shadow:0 0 0 0;
     height: 34px;
@@ -132,4 +132,57 @@
 
 .bootstrap-select>.dropdown-toggle.bs-placeholder, .bootstrap-select>.dropdown-toggle.bs-placeholder:active, .bootstrap-select>.dropdown-toggle.bs-placeholder:focus, .bootstrap-select>.dropdown-toggle.bs-placeholder:hover {
     color: black !important;
+}
+
+#evolution-wrapper, #growth {
+    display: flex;
+    justify-content: left;
+}
+
+.inputrow {
+    justify-content: left;
+}
+
+#dropdown-year-country {
+    margin-left: 10px;
+    margin-top: 5px;
+}
+
+.bootstrap-tagsinput {
+    margin-top: 0 !important;
+}
+
+#filter-input-divide, #filter-input-evolution{
+    margin-left: auto;
+    margin-right: auto;
+    width: 90%;
+    display: flex;
+    justify-content: left;
+}
+
+#info-evolution {
+    margin-left: 120px;
+    margin-top: 50px;
+    margin-right: 200px;
+}
+
+.up {
+    color: green;
+}
+
+.down {
+    color: red;
+}
+
+.type-growth {
+    font-size: 1.3em;
+    border-bottom: 1px solid #ddd;
+}
+
+#annual-growth, #total-growth {
+    font-size: 2em;
+}
+
+#growth-total-wrapper {
+    margin-left: 60px;
 }
