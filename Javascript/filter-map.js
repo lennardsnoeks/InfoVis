@@ -1,6 +1,7 @@
 let yearsArray = [];
 let typesArray = [];
 let fieldsArray = [];
+let evolutionArray = [];
 
 $(document).ready(function() {
     $('#tags').tagsinput('add', "Alle jaren");
@@ -71,12 +72,14 @@ $(document).ready(function() {
 
     $('#dropdown-edu').change(function(){
         $('#tags').tagsinput('add', $(this).val());
-        $('#tags').tagsinput('remove', "Alle opleidingen");
+        $('#tags').tagsinput('remove', "Alle opleidingen")
 
-        let field = $(this).text();
+        let field = $(this).val();
         if($.inArray(field, fieldsArray) == -1) {
             fieldsArray.push(field);
         }
+
+        $("option:selected").prop("selected", false);
 
         fillWorldmap();
     });
@@ -110,22 +113,22 @@ $(document).ready(function() {
     // are used to retrieve the data
     $("#filter-input-evolution").on("click", "#dropdown-sort-edu-evo li", function(){
         $('#tagsEvolution').tagsinput('add', $(this).text());
-        typesArray.push($(this).text());
+        evolutionArray.push($(this).text());
         $('#tagsEvolution').tagsinput('remove', "Elk type opleiding");
 
-        drawEvolution(typesArray)
+        drawEvolution(evolutionArray)
     });
 
     $('#tagsEvolution').on('itemRemoved', function(event) {
-        let index = $.inArray(event.item, typesArray);
+        let index = $.inArray(event.item, evolutionArray);
         if(index !== -1) {
-            typesArray.splice(index, 1);
+            evolutionArray.splice(index, 1);
 
-            if(typesArray.length === 0) {
+            if(evolutionArray.length === 0) {
                 $('#tagsEvolution').tagsinput('add', "Elk type opleiding");
             }
 
-            drawEvolution(typesArray)
+            drawEvolution(evolutionArray)
         }
     });
 
@@ -133,14 +136,15 @@ $(document).ready(function() {
         $('#tagsEvolution').tagsinput('removeAll');
         $('#tagsEvolution').tagsinput('add', "Elk type opleiding");
 
-        typesArray = [];
+        evolutionArray = [];
 
-        drawEvolution(typesArray)
+        drawEvolution(evotionArray)
     });
 });
 
 function removeTag(item, array, defaultTag) {
     let index = $.inArray(item, array);
+    console.log(index);
     if(index !== -1) {
         array.splice(index, 1);
 
@@ -169,12 +173,18 @@ function fillWorldmap() {
 
     $.get(apiCall, {}, function (data) {
         let max = Math.max.apply(Math, data.map(function (item) {
-            return item["amount"];
+                return item["amount"];
         }));
 
         let sum = d3.sum(data, function(d){return parseFloat(d.amount);});
 
         $('#amount').html('<b>Aantal:</b>  ' + sum);
+
+        if(max == "-Infinity") {
+            $('#max').html("0");
+        } else {
+            $('#max').html(max);
+        }
 
         let paletteScale = d3.scale.linear()
             .domain([0, max])
@@ -239,7 +249,7 @@ function createMap(dataset) {
         done: function(datamap) {
             datamap.svg.selectAll('.datamaps-subunit').on('click', function(geography) {
                 if(parseInt(amount) !== 0) {
-                    window.location.href = "http://localhost:63342/InfoVis/country-info.html?"
+                    window.location.href = "http://localhost:63342/Project_Info_Vis/country-info.html?"
                         + "iso=" + geography.properties.iso
                         + "&years=" + yearsArray.join()
                 }
