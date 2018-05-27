@@ -239,7 +239,7 @@ function createMap(dataset) {
         done: function(datamap) {
             datamap.svg.selectAll('.datamaps-subunit').on('click', function(geography) {
                 if(parseInt(amount) !== 0) {
-                    window.location.href = "http://localhost:63344/InfoVis/countryinfo.html?"
+                    window.location.href = "http://localhost:63342/InfoVis/country-info.html?"
                         + "iso=" + geography.properties.iso
                         + "&years=" + yearsArray.join()
                 }

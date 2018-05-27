@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+    <!-- JQuery -->
+    <script src="http://code.jquery.com/jquery-3.3.1.min.js"
+            integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+    <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+    <link href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/themes/base/jquery-ui.css" rel="stylesheet">
+
+    <!-- Bootstrap -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+    <!-- D3 -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/4.13.0/d3.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/topojson/1.6.9/topojson.min.js"></script>
+
+    <!-- Bootstrap select -->
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.4/css/bootstrap-select.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.4/js/bootstrap-select.min.js"></script>
+
+    <!-- Bootstrap tags input -->
+    <script src="bootstrap-tagsinput-latest/dist/bootstrap-tagsinput.js"></script>
+    <link href="bootstrap-tagsinput-latest/dist/bootstrap-tagsinput.css" rel="stylesheet">
+
+    <!-- Self defined files -->
+    <script src="Javascript/sidebar.js"></script>
+    <link href="CSS/worldmap.css" rel="stylesheet">
+    <link href="CSS/homepage.css" rel="stylesheet">
+    <link href="CSS/sidebar.css" rel="stylesheet">
+    <link href="CSS/subject-info.css" rel="stylesheet">
+
+</head>
+<body>
+<div id="wrapper">
+    <div class="overlay"></div>
+
+    <!-- Sidebar -->
+    <div id="nav-placeholder"></div>
+
+    <!-- Page Content -->
+    <div id="page-content-wrapper">
+        <button type="button" id="test" class="hamburger is-closed" data-toggle="offcanvas">
+            <span class="hamb-top"></span>
+            <span class="hamb-middle"></span>
+            <span class="hamb-bottom"></span>
+        </button>
+        <div id="title-wrapper" class="row">
+            <p id="title">Informatie over </p>
+            <div id="dropdown-subject-btn">
+                <select id="dropdown-subject" name="ddc" class="selectpicker" data-live-search="true" data-width="auto">
+                </select>
+            </div>
+        </div>
+        <div class="row">
+            <p class="subtitle">Verdeling</p>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(function () {
+        $("#nav-placeholder").load("nav.html");
+    });
+</script>
+<script src="Javascript/subject-info.js"></script>
+</body>
+</html>

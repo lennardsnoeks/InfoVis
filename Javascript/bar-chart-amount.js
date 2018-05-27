@@ -65,6 +65,10 @@ function updateBarChart(type, iso, yearsArray) {
             .on("mouseout", function (d, i) {
                 d3.select(this).style("fill", color(type));
                 tooltip.style("display", "none");
+            })
+            .on("click", function (d, i) {
+                window.location.href = "http://localhost:63342/InfoVis/subject-info.html?"
+                    + "subject=" + d.opleiding
             });
 
         // add the x

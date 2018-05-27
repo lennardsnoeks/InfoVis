@@ -46,6 +46,7 @@
 
 .dropdown {
     width: 200px;
+    height: 34px;
 }
 
 #dropdown-year-btn, #dropdown-sort-edu-btn, #dropdown-sort-edu-btn-evo {
@@ -65,8 +66,8 @@
 .icons {
     padding-right: 0;
     height: 34px;
-    border-color: white !important;
-    background-color: white;
+    border-color: #fcfcfc !important;
+    background-color: #fcfcfc;
     box-shadow: none;
     border-style: solid;
     outline: none;
@@ -89,10 +90,6 @@
 
 .filter-option {
     text-align: center !important;
-}
-
-.bootstrap-select {
-    width: 200px !important;
 }
 
 .dropdown-toggle {
@@ -163,7 +160,6 @@
 #info-evolution {
     margin-left: 120px;
     margin-top: 50px;
-    margin-right: 200px;
 }
 
 .up {
@@ -183,10 +179,18 @@
     font-size: 2em;
 }
 
-.percentage {
+.percentage1 {
     font-size: 0.7em;
+}
+
+.percentage2 {
+    font-size: 1em;
 }
 
 #growth-total-wrapper {
     margin-left: 60px;
+}
+
+#growth-annual-wrapper, #growth-total-wrapper {
+    width: 200px;
 }

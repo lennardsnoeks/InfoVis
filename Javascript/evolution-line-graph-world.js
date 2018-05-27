@@ -35,7 +35,6 @@ function drawEvolution(typesArray) {
 
     $.get('http://localhost:3000/amountyearsworldtype?types=' + typesArray.toString(), {}, function (data) {
         let amountYears = 0;
-        let totalAmount = 0;
 
         let percentageMap = {};
         let amountMap = {};
@@ -61,7 +60,6 @@ function drawEvolution(typesArray) {
             amountYears++;
             d.year = parseTime(year);
             d.amount = +d.amount;
-            totalAmount += d.amount;
         });
 
         $("#year-title").text(year);
@@ -90,19 +88,19 @@ function drawEvolution(typesArray) {
         }
 
         if(growthAnnual > 0) {
-            $("#annual-growth").html(amountAnnual + " <span class='percentage' style=\"color: green\">(" + Math.abs(Number((growthAnnual).toFixed(1))) + "%<span class='up glyphicon glyphicon-triangle-top'></span>)</span>");
+            $("#annual-growth").html(amountAnnual + " <span class='percentage1' style=\"color: green\">(" + Math.abs(Number((growthAnnual).toFixed(1))) + "%<span class='up glyphicon glyphicon-triangle-top'></span>)</span>");
         } else if(growthAnnual < 0) {
-            $("#annual-growth").html(amountAnnual + " <span class='percentage' style=\"color: red\">(" + Math.abs(Number((growthAnnual).toFixed(1))) + "%<span class='down glyphicon glyphicon-triangle-bottom'></span>)</span>");
+            $("#annual-growth").html(amountAnnual + " <span class='percentage1' style=\"color: red\">(" + Math.abs(Number((growthAnnual).toFixed(1))) + "%<span class='down glyphicon glyphicon-triangle-bottom'></span>)</span>");
         } else {
-            $("#annual-growth").html(amountAnnual + " <span class='percentage' style=\"color: black\">(" + Math.abs(Number((growthAnnual).toFixed(1))) + "%<span class='even glyphicon glyphicon-minus'></span>)</span>");
+            $("#annual-growth").html(amountAnnual + " <span class='percentage1' style=\"color: black\">(" + Math.abs(Number((growthAnnual).toFixed(1))) + "%<span class='even glyphicon glyphicon-minus'></span>)</span>");
         }
 
         if(growthTotal > 0) {
-            $("#total-growth").html(totalAmount + " <span class='percentage' style=\"color: green\">(" + Math.abs(Number((growthTotal).toFixed(1))) + "%<span class='up glyphicon glyphicon-triangle-top'></span>)</span>");
+            $("#total-growth").html("<span class='percentage2' style=\"color: green\">" + Math.abs(Number((growthTotal).toFixed(1))) + "%<span class='up glyphicon glyphicon-triangle-top'></span></span>");
         } else if(growthTotal < 0) {
-            $("#total-growth").html(totalAmount + " <span class='percentage' style=\"color: red\">(" + Math.abs(Number((growthTotal).toFixed(1))) + "%<span class='down glyphicon glyphicon-triangle-bottom'></span>)</span>");
+            $("#total-growth").html("<span class='percentage2' style=\"color: red\">" + Math.abs(Number((growthTotal).toFixed(1))) + "%<span class='down glyphicon glyphicon-triangle-bottom'></span></span>");
         } else {
-            $("#total-growth").html(totalAmount + " <span class='percentage' style=\"color: black\">(" + Math.abs(Number((growthTotal).toFixed(1))) + "%<span class='even glyphicon glyphicon-minus'></span>)</span>");
+            $("#total-growth").html("<span class='percentage2' style=\"color: black\">" + Math.abs(Number((growthTotal).toFixed(1))) + "%<span class='even glyphicon glyphicon-minus'></span></span>");
         }
 
         x.domain(d3version4.extent(data, function (d) {
@@ -148,11 +146,6 @@ function drawEvolution(typesArray) {
             .attr("y1", 0)
             .attr("y2", height);
 
-        focus.append("line")
-            .attr("class", "y-hover-line hover-line")
-            .attr("x1", width)
-            .attr("x2", width);
-
         focus.append("circle")
             .attr("r", 7.5);
 
@@ -165,6 +158,7 @@ function drawEvolution(typesArray) {
             .attr("class", "overlaychart")
             .attr("width", width)
             .attr("height", height)
+            .style("cursor", "pointer")
             .on("mouseover", function () {
                 focus.style("display", null);
             })

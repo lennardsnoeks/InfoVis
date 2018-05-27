@@ -1,0 +1,14 @@
+#page-content-wrapper {
+    background-color: #fcfcfc;
+}
+
+#title-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#dropdown-subject-btn {
+    margin-left: 10px;
+    margin-top: 5px;
+}

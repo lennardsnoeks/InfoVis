@@ -46,29 +46,3 @@
     width: 90%;
     border-bottom: 1px solid #ddd;
 }
-
-#info-evolution {
-    margin-left: 120px;
-    margin-top: 50px;
-    margin-right: 200px;
-}
-
-.up {
-    color: green;
-}
-
-.down {
-    color: red;
-}
-
-.type-growth {
-    font-size: 1.3em;
-}
-
-#annual-growth, #total-growth {
-    font-size: 2em;
-}
-
-#growth-total-wrapper {
-    margin-left: 20px;
-}
