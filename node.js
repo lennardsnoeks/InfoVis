@@ -31,7 +31,7 @@ app.get('/worldmap', function(req, res){
         sql_fields = 'opleiding IN ' + '("' + items.join('","') + '")';
     }
 
-    let sql = 'SELECT iso, COUNT(*) as amount FROM dataset WHERE ' + sql_years + ' AND ' + sql_types + ' AND ' + sql_fields + ' GROUP BY iso';
+    let sql = 'SELECT iso, land, COUNT(*) as amount FROM dataset WHERE ' + sql_years + ' AND ' + sql_types + ' AND ' + sql_fields + ' GROUP BY iso';
 
     db.all(sql, [],(err, rows) => {
         if (err) {

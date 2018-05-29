@@ -50,7 +50,7 @@ $(document).ready(function() {
         $('#tags').tagsinput('remove', "Alle jaren");
 
         let year = $(this).text();
-        if($.inArray(year, yearsArray) == -1) {
+        if($.inArray(year, yearsArray) === -1) {
             yearsArray.push(year);
         }
 
@@ -62,7 +62,7 @@ $(document).ready(function() {
         $('#tags').tagsinput('remove', "Elk type opleiding");
 
         let type = $(this).text();
-        if($.inArray(type, typesArray) == -1) {
+        if($.inArray(type, typesArray) === -1) {
             typesArray.push(type);
         }
 
@@ -74,7 +74,7 @@ $(document).ready(function() {
         $('#tags').tagsinput('remove', "Alle opleidingen");
 
         let field = $(this).text();
-        if($.inArray(field, fieldsArray) == -1) {
+        if($.inArray(field, fieldsArray) === -1) {
             fieldsArray.push(field);
         }
 
@@ -100,6 +100,8 @@ $(document).ready(function() {
         removeTag(event.item, typesArray, "Elk type opleiding");
         removeTag(event.item, fieldsArray, "Alle opleidingen");
     });
+
+    $('#table-country').bootstrapTable({});
 
     fillWorldmap();
     drawEvolution(typesArray);
@@ -137,61 +139,90 @@ $(document).ready(function() {
 
         drawEvolution(typesArray)
     });
+
+    $("#kaart").on('focus', function() {
+        $("#table-wrapper").css("display", "none");
+        $("#worldmap-wrapper").css("display", "block");
+        fillWorldmap();
+    });
+
+    $("#tabel").on('focus', function() {
+        $("#worldmap-wrapper").css("display", "none");
+        $("#table-wrapper").css("display", "block");
+    });
 });
 
 function removeTag(item, array, defaultTag) {
-    let index = $.inArray(item, array);
-    if(index !== -1) {
-        array.splice(index, 1);
+let index = $.inArray(item, array);
+if(index !== -1) {
+    array.splice(index, 1);
 
-        if(array.length == 0) {
-            $('#tags').tagsinput('add', defaultTag);
-        }
-
-        fillWorldmap();
+    if(array.length === 0) {
+        $('#tags').tagsinput('add', defaultTag);
     }
+
+    fillWorldmap();
+}
 }
 
 function fillWorldmap() {
-    let apiCall = 'http://localhost:3000/worldmap?';
+let apiCall = 'http://localhost:3000/worldmap?';
 
-    if(yearsArray.length > 0) {
-        apiCall = apiCall + "years=" + yearsArray.join() + "&";
-    }
+if(yearsArray.length > 0) {
+    apiCall = apiCall + "years=" + yearsArray.join() + "&";
+}
 
-    if(typesArray.length > 0) {
-        apiCall = apiCall + "types=" + typesArray.join() + "&";
-    }
+if(typesArray.length > 0) {
+    apiCall = apiCall + "types=" + typesArray.join() + "&";
+}
 
-    if(fieldsArray.length > 0) {
-        apiCall = apiCall + "fields=" + fieldsArray.join() + "&";
-    }
+if(fieldsArray.length > 0) {
+    apiCall = apiCall + "fields=" + fieldsArray.join() + "&";
+}
 
-    $.get(apiCall, {}, function (data) {
-        let max = Math.max.apply(Math, data.map(function (item) {
-            return item["amount"];
-        }));
+$.get(apiCall, {}, function (data) {
+    let max = Math.max.apply(Math, data.map(function (item) {
+        return item["amount"];
+    }));
 
-        let sum = d3.sum(data, function(d){return parseFloat(d.amount);});
+    let sum = d3.sum(data, function(d){return parseFloat(d.amount);});
 
-        $('#amount').html('<b>Aantal:</b>  ' + sum);
+    $('#amount').html('<b>Aantal:</b>  ' + sum);
 
-        let paletteScale = d3.scale.linear()
-            .domain([0, max])
-            .range(["#ffffff", "#ff0006"]);
+    let paletteScale = d3.scale.linear()
+        .domain([0, max])
+        .range(["#ffffff", "#ff0006"]);
 
-        let dataset = {};
+    let dataset = {};
 
-        data.forEach(function (item) {
-            // item example value ["USA", 70]
-            let iso = item["iso"];
-            let amount = item["amount"];
+    data.forEach(function (item) {
+        // item example value ["USA", 70]
+        let iso = item["iso"];
+        let amount = item["amount"];
 
-            dataset[iso] = {students: amount, fillColor: paletteScale(amount)};
+        dataset[iso] = {students: amount, fillColor: paletteScale(amount)};
+    });
+
+    createMap(dataset);
+
+    // Modify data to represent flags
+    data.forEach(function (d) {
+        /*d.iso = "<img class='icon' src='flags/" + d.iso + ".svg'/>";*/
+            let link = "http://localhost:63342/InfoVis/country-info.html?"
+                + "iso=" + d.iso
+                + "&years=" + yearsArray.join();
+
+            d.land = "<a href=" + link + ">" + d.land + "</a>";
         });
 
-        createMap(dataset);
+        fillTable(data);
     });
+}
+
+function fillTable(data) {
+    $('#table-country').bootstrapTable("load", data);
+    $('#table-country').bootstrapTable("load", {});
+    $('#table-country').bootstrapTable("load", data);
 }
 
 function createMap(dataset) {
@@ -250,7 +281,7 @@ function createMap(dataset) {
 
     map.legend();
 
-    window.addEventListener('resize', function (event) {
+    window.addEventListener('resize', function () {
         map.resize();
     });
 }

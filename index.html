@@ -14,6 +14,10 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
+    <!-- Bootstrap table -->
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.12.1/bootstrap-table.min.css">
+    <script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.12.1/bootstrap-table.min.js"></script>
+
     <!-- D3 -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/4.10.0/d3.min.js"></script>
     <script>
@@ -63,7 +67,7 @@
 
         <!-- Worldmap part -->
         <div class="row">
-            <p class="subtitle">Wereldkaart</p>
+            <p class="subtitle">Wereldwijd</p>
         </div>
         <div id="worldmap-nav" class="tab-pane fade in active">
             <div class="row" id="filter-input">
@@ -94,11 +98,44 @@
                 <div class="btn-group">
                     <p id="amount"></p>
                 </div>
+                <div class="btn-group btn-group-toggle" data-toggle="buttons" id="toggle-buttons">
+                    <label class="btn btn-secondary active">
+                        <input type="radio" name="options" id="kaart" autocomplete="off" checked> Kaart
+                    </label>
+                    <label class="btn btn-secondary">
+                        <input type="radio" name="options" id="tabel" autocomplete="off"> Tabel
+                    </label>
+                </div>
             </div>
             <div class="row inputrow">
                 <input id="tags" data-role="tagsinput"/>
             </div>
-            <div id="worldmap" class="row"></div>
+            <div class="tab-content">
+                <div id="worldmap-wrapper" class="active tab-pane">
+                    <div id="worldmap" class="row"></div>
+                </div>
+                <div id="table-wrapper" class="row tab-pane">
+                    <table id="table-country"
+                           data-sort-name="amount"
+                           data-sort-order="desc"
+                           data-height="650">
+                        <thead>
+                        <tr>
+                            <th data-width="30" data-field="iso" id="iso-col">
+                            </th>
+                            <th data-field="land"
+                                data-sortable="true" data-width="250">
+                                Land
+                            </th>
+                            <th data-field="amount"
+                                data-sortable="true" data-width="100">
+                                Aantal
+                            </th>
+                        </tr>
+                        </thead>
+                    </table>
+                </div>
+            </div>
         </div>
 
         <!-- Evolution part -->

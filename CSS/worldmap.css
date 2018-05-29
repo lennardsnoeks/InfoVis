@@ -7,6 +7,18 @@
     padding-top: 35px;
 }
 
+.fixed-table-container {
+    padding-bottom: 40px !important;
+}
+
+.fixed-table-header {
+    background-color: #f1f1f1;
+}
+
+.fixed-table-body {
+    background-color: white;
+}
+
 .row {
     margin-left: 0;
     margin-right: 0;
@@ -193,4 +205,22 @@
 
 #growth-annual-wrapper, #growth-total-wrapper {
     width: 200px;
+}
+
+.icon {
+    height: auto;
+    width: auto;
+}
+
+#iso-col {
+    width: 40px;
+}
+
+#table-wrapper {
+    width: 50%;
+    margin: 30px auto;
+}
+
+#toggle-buttons {
+    margin-left: 40px;
 }
