@@ -72,12 +72,12 @@ $(document).ready(function() {
 
     $('#dropdown-edu').change(function(){
         $('#tags').tagsinput('add', $(this).val());
-        $('#tags').tagsinput('remove', "Alle opleidingen")
+        $('#tags').tagsinput('remove', "Alle opleidingen");
 
-        let field = $(this).text();
-        if($.inArray(field, fieldsArray) === -1) {
+        /*let field = $(this).text();
+        if($.inArray(field, fieldsArray) === -1) {*/
         let field = $(this).val();
-        if($.inArray(field, fieldsArray) == -1) {
+        if($.inArray(field, fieldsArray) === -1) {
             fieldsArray.push(field);
         }
 
@@ -142,7 +142,7 @@ $(document).ready(function() {
 
         evolutionArray = [];
 
-        drawEvolution(evotionArray)
+        drawEvolution(evolutionArray)
     });
 
     $("#kaart").on('focus', function() {
@@ -191,8 +191,6 @@ if(fieldsArray.length > 0) {
         }));
 
     let sum = d3.sum(data, function(d){return parseFloat(d.amount);});
-
-    $('#amount').html('<b>Aantal:</b>  ' + sum);
 
         if(max == "-Infinity") {
             $('#max').html("0");
