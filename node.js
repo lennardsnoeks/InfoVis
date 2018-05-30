@@ -246,4 +246,18 @@ app.get('/fields/:type', function(req, res){
     });
 });
 
+app.get('/gender/:field', function(req, res) {
+    let field = req.params.field;
+
+    let sql = 'SELECT land as country, COUNT(CASE WHEN geslacht = ? THEN 1 END) male, COUNT(CASE WHEN geslacht = ? THEN 1 END) female FROM dataset WHERE opleiding = ? GROUP BY country';
+
+    db.all(sql, ['M', 'V', field],(err, rows) => {
+        if (err) {
+            throw err;
+        }
+
+        res.send(JSON.parse(JSON.stringify(rows))); //replace with your data
+    });
+});
+
 app.listen(3000);

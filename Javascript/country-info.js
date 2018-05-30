@@ -72,9 +72,6 @@ $(document).ready(function() {
     $('#dropdown-country').change(function(){
         iso = $(this).val();
 
-        //let text =$("#dropdown-country option:selected").text();
-        //$("#title").html("Studenten informatie over " + text);
-
         drawVisualisation(iso, yearsArray);
         fillDropdownEvolution(iso);
     });
