@@ -149,11 +149,13 @@ $(document).ready(function () {
         $("#table-wrapper").css("display", "none");
         $("#worldmap-wrapper").css("display", "block");
         fillWorldmap();
+        $(".legend").css("display", "block");
     });
 
     $("#tabel").on('focus', function () {
         $("#worldmap-wrapper").css("display", "none");
         $("#table-wrapper").css("display", "block");
+        $(".legend").css("display", "none");
     });
 });
 
@@ -195,6 +197,10 @@ function fillWorldmap() {
         } else {
             $('#max').html(max);
         }
+
+        let sum = d3.sum(data, function(d){return parseFloat(d.amount);});
+
+        $('#amount').html('<b>Aantal:</b>  ' + sum);
 
         let paletteScale = d3.scale.linear()
             .domain([0, max])

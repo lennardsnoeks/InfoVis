@@ -29,10 +29,6 @@
     margin-left: 5px;
 }
 
-#min {
-    margin-left: 30%;
-}
-
 #gradient {
     height: 20px;
     width: 150px;
@@ -236,7 +232,16 @@
 }
 
 #toggle-buttons {
-    margin-left: 5%;
+    margin-left: 10%;
+}
+
+#min {
+    margin-left: 10%;
+}
+
+#amount-wrapper {
+    margin-left: 10%;
+    /*margin-right: 15%;*/
 }
 
 .bootstrap-table {
