@@ -30,6 +30,10 @@ body {
     display: none;
 }
 
+#stacked-bar-chart {
+    margin-left: 150px;
+}
+
 .toolTip {
     pointer-events: none;
     position: absolute;

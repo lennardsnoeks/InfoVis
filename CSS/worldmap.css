@@ -247,3 +247,13 @@
 .bootstrap-table {
     border-bottom: 1px solid rgb(221, 221, 221);
 }
+
+#slider-range {
+    width: 680px;
+    margin-bottom: 50px;
+    margin-left: 80px;
+}
+
+.ui-state-default, .ui-widget-content .ui-state-default, .ui-widget-header .ui-state-default {
+    background: darkgray !important;
+}
