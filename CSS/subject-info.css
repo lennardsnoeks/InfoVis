@@ -13,6 +13,15 @@
     margin-top: 5px;
 }
 
+#donut-chart {
+    margin-left: 15%;
+    margin-top: 24%;
+}
+
+#stacked-bar-chart {
+    margin-right:15%;
+}
+
 body {
     font-family: 'Open Sans', sans-serif;
 }
