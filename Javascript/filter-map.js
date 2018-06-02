@@ -157,6 +157,47 @@ $(document).ready(function () {
         $("#table-wrapper").css("display", "block");
         $(".legend").css("display", "none");
     });
+
+    $( "#slider-range" ).slider({
+        range: true,
+        min: 2013,
+        max: 2017,
+        values: [2013, 2017],
+        slide: function( event, ui ) {
+
+            let arrayLength = yearsArray.length;
+
+            while(yearsArray.length > 0) {
+                $('#tags').tagsinput('remove', yearsArray[0]);
+                arrayLength = yearsArray.length;
+            }
+
+            let min = $("#slider-range").slider("option", "min");
+            let max = $("#slider-range").slider("option", "max");
+
+            if(!(min === ui.values[0] && max === ui.values[1])) {
+                $('#tags').tagsinput('remove', "Alle jaren");
+
+                let value = ui.values[0];
+                while(value <= ui.values[1]) {
+
+                    let yearPart = value + 1;
+                    let totalYear = value.toString() + "-" + yearPart.toString();
+
+                    yearsArray.push(totalYear);
+
+                    console.log(totalYear);
+                    $('#tags').tagsinput('add', totalYear);
+
+                    value++;
+                }
+
+                console.log(yearsArray);
+            }
+
+            fillWorldmap()
+        }
+    });
 });
 
 function removeTag(item, array, defaultTag) {

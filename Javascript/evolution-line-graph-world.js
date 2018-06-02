@@ -48,11 +48,11 @@ function drawEvolution(typesArray) {
 
             amountMap[year] = d.amount;
 
-            if(firstYear === 1) {
+            if (firstYear === 1) {
                 firstYear = 0;
                 percentageMap[year] = 0;
             } else {
-                percentageMap[year] = Number((((d.amount - previousAmount) / previousAmount)  * 100).toFixed(1));
+                percentageMap[year] = Number((((d.amount - previousAmount) / previousAmount) * 100).toFixed(1));
             }
 
             previousAmount = d.amount;
@@ -66,7 +66,7 @@ function drawEvolution(typesArray) {
 
         let growthTotal, growthAnnual, amountAnnual;
 
-        if(amountYears > 1) {
+        if (amountYears > 1) {
             // Calculate percentage growth of all years and versus previous year
             let differenceTotal, firstYearAmount, lastYearAmount;
 
@@ -79,7 +79,7 @@ function drawEvolution(typesArray) {
             growthTotal = 0;
         }
 
-        if(amountYears > 0) {
+        if (amountYears > 0) {
             growthAnnual = percentageMap[year];
             amountAnnual = amountMap[year];
         } else {
@@ -87,17 +87,17 @@ function drawEvolution(typesArray) {
             amountAnnual = 0;
         }
 
-        if(growthAnnual > 0) {
+        if (growthAnnual > 0) {
             $("#annual-growth").html(amountAnnual + " <span class='percentage1' style=\"color: green\">(" + Math.abs(Number((growthAnnual).toFixed(1))) + "%<span class='up glyphicon glyphicon-triangle-top'></span>)</span>");
-        } else if(growthAnnual < 0) {
+        } else if (growthAnnual < 0) {
             $("#annual-growth").html(amountAnnual + " <span class='percentage1' style=\"color: red\">(" + Math.abs(Number((growthAnnual).toFixed(1))) + "%<span class='down glyphicon glyphicon-triangle-bottom'></span>)</span>");
         } else {
             $("#annual-growth").html(amountAnnual + " <span class='percentage1' style=\"color: black\">(" + Math.abs(Number((growthAnnual).toFixed(1))) + "%<span class='even glyphicon glyphicon-minus'></span>)</span>");
         }
 
-        if(growthTotal > 0) {
+        if (growthTotal > 0) {
             $("#total-growth").html("<span class='percentage2' style=\"color: green\">" + Math.abs(Number((growthTotal).toFixed(1))) + "%<span class='up glyphicon glyphicon-triangle-top'></span></span>");
-        } else if(growthTotal < 0) {
+        } else if (growthTotal < 0) {
             $("#total-growth").html("<span class='percentage2' style=\"color: red\">" + Math.abs(Number((growthTotal).toFixed(1))) + "%<span class='down glyphicon glyphicon-triangle-bottom'></span></span>");
         } else {
             $("#total-growth").html("<span class='percentage2' style=\"color: black\">" + Math.abs(Number((growthTotal).toFixed(1))) + "%<span class='even glyphicon glyphicon-minus'></span></span>");
@@ -113,8 +113,7 @@ function drawEvolution(typesArray) {
         g.append("g")
             .attr("class", "axis axis--x")
             .attr("transform", "translate(0," + height + ")")
-            .call(d3version4.axisBottom(x).
-            tickFormat(function(date) {
+            .call(d3version4.axisBottom(x).tickFormat(function (date) {
                 return d3version4.timeFormat('%Y')(date);
             }).ticks(amountYears));
 
@@ -191,15 +190,24 @@ function drawEvolution(typesArray) {
 
             let year = d.year.toString().split(" ")[3];
 
-            if(percentageMap[year] > 0) {
+            if (percentageMap[year] > 0) {
                 $("#annual-growth").html(amountMap[year] + " <span class='percentage' style=\"color: green\">(" + Math.abs(Number((percentageMap[year]).toFixed(1))) + "%<span class='up glyphicon glyphicon-triangle-top'></span>)</span>");
-            } else if(percentageMap[year] < 0) {
+            } else if (percentageMap[year] < 0) {
                 $("#annual-growth").html(amountMap[year] + " <span class='percentage' style=\"color: red\">(" + Math.abs(Number((percentageMap[year]).toFixed(1))) + "%<span class='down glyphicon glyphicon-triangle-bottom'></span>)</span>");
             } else {
                 $("#annual-growth").html(amountMap[year] + " <span class='percentage' style=\"color: black\">(" + Math.abs(Number((percentageMap[year]).toFixed(1))) + "%<span class='even glyphicon glyphicon-minus'></span>)</span>");
             }
 
             $("#year-title").text(year);
+
+            /*let yearPart = parseInt(year) + 1;
+            let totalYear = year + "-" + yearPart.toString();
+
+            yearsArray = [];
+
+
+            yearsArray.push(totalYear);
+            fillWorldmap();*/
         }
     });
 }
