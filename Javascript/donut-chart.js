@@ -23,6 +23,7 @@ function drawDonut(iso, yearsArray) {
     d3.select("#donut-chart-id").remove();
 
     $.get('http://localhost:3000/countrytype?iso=' + iso + '&years=' + yearsArray.toString(), {}, function (data) {
+        console.log(data);
         let svg = d3.select("#donut-chart")
             .append('svg')
             .attr("id","donut-chart-id")

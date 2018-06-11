@@ -2,6 +2,7 @@ let yearsArray = [];
 let typesArray = [];
 let fieldsArray = [];
 let evolutionArray = [];
+let waitForUpdate = false;
 
 $(document).ready(function () {
     $('#tags').tagsinput('add', "Alle jaren");
@@ -104,6 +105,10 @@ $(document).ready(function () {
         removeTag(event.item, yearsArray, "Alle jaren");
         removeTag(event.item, typesArray, "Elk type opleiding");
         removeTag(event.item, fieldsArray, "Alle opleidingen");
+
+        if(!waitForUpdate) {
+            fillWorldmap();
+        }
     });
 
     $('#table-country').bootstrapTable({});
@@ -167,6 +172,7 @@ $(document).ready(function () {
 
             let arrayLength = yearsArray.length;
 
+            waitForUpdate = true;
             while(yearsArray.length > 0) {
                 $('#tags').tagsinput('remove', yearsArray[0]);
                 arrayLength = yearsArray.length;
@@ -177,6 +183,7 @@ $(document).ready(function () {
 
             if(!(min === ui.values[0] && max === ui.values[1])) {
                 $('#tags').tagsinput('remove', "Alle jaren");
+                waitForUpdate = false;
 
                 let value = ui.values[0];
                 while(value <= ui.values[1]) {
@@ -205,12 +212,11 @@ function removeTag(item, array, defaultTag) {
         if (array.length === 0) {
             $('#tags').tagsinput('add', defaultTag);
         }
-
-        fillWorldmap();
     }
 }
 
 function fillWorldmap() {
+    console.log("test");
     let apiCall = 'http://localhost:3000/worldmap?';
 
     if (yearsArray.length > 0) {

@@ -246,6 +246,25 @@ app.get('/fields/:type', function(req, res){
     });
 });
 
+// Get amount of males and females of a field
+app.get('/gender/count/:field', function(req, res){
+    let field = req.params.field;
+    console.log(field);
+
+    let sql = 'SELECT land as country, COUNT(CASE WHEN geslacht = ? THEN 1 END) male, COUNT(CASE WHEN geslacht = ? THEN 1 END) female FROM dataset WHERE opleiding = ?';
+
+    db.all(sql, ['M', 'V', field],(err, rows) => {
+        if (err) {
+            throw err;
+        }
+
+        let male  = { gender: 'Man', amount: rows[0].male };
+        let female = { gender: 'Vrouw', amount: rows[0].female };
+        let data = [male, female];
+        res.send(JSON.parse(JSON.stringify(data))); //replace with your data
+    });
+});
+
 app.get('/gender/:field', function(req, res) {
     let field = req.params.field;
 
