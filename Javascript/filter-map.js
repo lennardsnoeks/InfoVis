@@ -186,16 +186,13 @@ $(document).ready(function () {
 
                     yearsArray.push(totalYear);
 
-                    console.log(totalYear);
                     $('#tags').tagsinput('add', totalYear);
 
                     value++;
                 }
-
-                console.log(yearsArray);
             }
 
-            fillWorldmap()
+            fillWorldmap();
         }
     });
 });
