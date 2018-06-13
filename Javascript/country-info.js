@@ -45,15 +45,14 @@ $(document).ready(function() {
         let items = [];
 
         $.each(data, function (i, item) {
-            if(item['iso'] === iso) {
-                //$("#title").html("Studenten informatie over " + item["land"]);
-            }
-
             items.push("<option value='" + item["iso"] + "'>" + item["land"] + "</option>");
         });
 
         $('#dropdown-country').html(items);
         $('#dropdown-country').selectpicker('refresh');
+
+        $('#dropdown-country-2').html(items);
+        $('#dropdown-country-2').selectpicker('refresh');
 
         $('select[name=ddc]').val(iso);
         $('.selectpicker').selectpicker('refresh');
@@ -74,6 +73,18 @@ $(document).ready(function() {
 
         drawVisualisation(iso, yearsArray);
         fillDropdownEvolution(iso);
+    });
+
+    $('#dropdown-country-2').change(function(){
+        iso = $(this).val();
+
+        $('#comparison-row').css("display", "block");
+
+        drawVisualisation2(iso, yearsArray);
+    });
+
+    $('#deleteComparison').on('click', function() {
+        $('#comparison-row').css("display", "none");
     });
 
     $('#deleteFiltersDivide').on('click', function() {

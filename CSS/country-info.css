@@ -51,3 +51,33 @@
     margin-left: 0;
     padding-left: 120px;
 }
+
+#comparison {
+    text-align: right;
+    margin-right: 40px;
+}
+
+#labelComparison {
+    font-weight: normal;
+    padding-right: 5px;
+}
+
+#country1, #country2 {
+    writing-mode: tb-rl;
+    transform: rotate(180deg);
+    color: grey;
+    margin-top: auto;
+    margin-bottom: auto;
+    padding-right: 30px;
+    font-weight: normal;
+    font-size: 20px;
+}
+
+.donut-col {
+    display: flex;
+    justify-content: left;
+}
+
+#comparison-row {
+    display: none;
+}

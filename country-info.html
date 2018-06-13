@@ -57,6 +57,14 @@
                 </select>
             </div>
         </div>
+        <div class="row" id="comparison">
+            <label id="labelComparison">Vergelijk met</label>
+            <select id="dropdown-country-2" name="ddc2" class="selectpicker" data-live-search="true">
+            </select>
+            <button id="deleteComparison" type="button" title="Verwijder de gebruikte filters" class="icons">
+                <span class="glyphicon glyphicon-remove"></span>
+            </button>
+        </div>
         <div class="row">
             <p class="subtitle">Verdeling</p>
         </div>
@@ -80,11 +88,22 @@
         </div>
 
         <div class="row">
-            <div class="col-lg-5">
+            <div class="col-lg-5 donut-col">
+                <label id="country1"></label>
                 <div id="donut-chart"></div>
             </div>
             <div class="col-lg-7">
                 <div id="bar-chart-amount"></div>
+            </div>
+        </div>
+
+        <div class="row" id="comparison-row">
+            <div class="col-lg-5 donut-col">
+                <label id="country2"></label>
+                <div id="donut-chart-2"></div>
+            </div>
+            <div class="col-lg-7">
+                <div id="bar-chart-amount-2"></div>
             </div>
         </div>
 

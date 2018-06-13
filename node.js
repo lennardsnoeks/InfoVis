@@ -78,6 +78,20 @@ app.get('/countrytype', function(req, res){
     });
 });
 
+app.get('/name/:iso', function(req, res) {
+    let iso = req.params.iso;
+
+    let sql = 'SELECT DISTINCT land FROM dataset WHERE iso = ?';
+
+    db.all(sql, [iso],(err, rows) => {
+        if (err) {
+            throw err;
+        }
+
+        res.send(JSON.parse(JSON.stringify(rows))); //replace with your data
+    });
+});
+
 app.get('/countrytypes/:iso', function(req, res) {
     let iso = req.params.iso;
 
