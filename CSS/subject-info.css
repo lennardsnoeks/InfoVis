@@ -13,9 +13,10 @@
     margin-top: 5px;
 }
 
+
 #donut-chart {
-    margin-left: 15%;
-    margin-top: 24%;
+    margin-left: 60px;
+    margin-top: 35px;
 }
 
 #stacked-bar-chart {
@@ -34,6 +35,7 @@ body {
     margin-left: 150px;
 }
 
+/*
 .toolTip {
     pointer-events: none;
     position: absolute;
@@ -48,7 +50,7 @@ body {
     color: #5B6770;
     box-shadow: 0px 3px 9px rgba(0, 0, 0, .15);
 }
-/*.toolTip:after {
+.toolTip:after {
     content: "";
     width: 0;
     height: 0;
@@ -59,8 +61,31 @@ body {
     bottom: 0px;
     left: 50%;
     margin-left: -12px;
-}*/
+}
 .toolTip span {
     font-weight: 500;
     color: #081F2C;
+}
+*/
+
+.chart {
+    margin: 10px;
+    padding-top: 10px;
+}
+
+.chart .left {
+    stroke: white;
+    fill: #4693C5;
+}
+
+.chart .right {
+    stroke: white;
+    fill: #FD1A44;
+}
+.chart text.name {
+    fill: black;
+}
+
+.chart text.title {
+    font-weight: bold;
 }

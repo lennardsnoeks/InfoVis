@@ -263,7 +263,6 @@ app.get('/fields/:type', function(req, res){
 // Get amount of males and females of a field
 app.get('/gender/count/:field', function(req, res){
     let field = req.params.field;
-    console.log(field);
 
     let sql = 'SELECT land as country, COUNT(CASE WHEN geslacht = ? THEN 1 END) male, COUNT(CASE WHEN geslacht = ? THEN 1 END) female FROM dataset WHERE opleiding = ?';
 

@@ -66,6 +66,11 @@ $(document).ready(function() {
         $('#tagsDivide').tagsinput('remove', "Alle jaren");
 
         drawVisualisation(iso, yearsArray);
+
+        if($('#comparison-row').css('display') == 'block')
+        {
+            drawVisualisation2(iso2, yearsArray);
+        }
     });
 
     $('#dropdown-country').change(function(){
@@ -76,11 +81,11 @@ $(document).ready(function() {
     });
 
     $('#dropdown-country-2').change(function(){
-        iso = $(this).val();
+        iso2 = $(this).val();
 
         $('#comparison-row').css("display", "block");
 
-        drawVisualisation2(iso, yearsArray);
+        drawVisualisation2(iso2, yearsArray);
     });
 
     $('#deleteComparison').on('click', function() {
@@ -94,6 +99,11 @@ $(document).ready(function() {
         yearsArray = [];
 
         drawVisualisation(iso, yearsArray);
+
+        if($('#comparison-row').css('display') == 'block')
+        {
+            drawVisualisation2(iso2, yearsArray);
+        }
     });
 
     $('#tagsDivide').on('itemRemoved', function(event) {
@@ -106,6 +116,11 @@ $(document).ready(function() {
             }
 
             drawVisualisation(iso, yearsArray);
+
+            if($('#comparison-row').css('display') == 'block')
+            {
+                drawVisualisation2(iso2, yearsArray);
+            }
         }
     });
 

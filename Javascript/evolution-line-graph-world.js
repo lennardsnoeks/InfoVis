@@ -1,3 +1,10 @@
+let evolutionData;
+
+let parseTime = d3version4.timeParse("%Y"),
+    bisectDate = d3version4.bisector(function (d) {
+        return d.year;
+    }).left;
+
 function drawEvolution(typesArray) {
     d3version4.select("#evolution-chart-world-id").remove();
 
@@ -13,11 +20,6 @@ function drawEvolution(typesArray) {
         .append("g")
         .attr("transform",
             "translate(" + margin.left + "," + margin.top + ")");
-
-    let parseTime = d3version4.timeParse("%Y"),
-        bisectDate = d3version4.bisector(function (d) {
-            return d.year;
-        }).left;
 
     let x = d3version4.scaleTime().range([0, width]);
     let y = d3version4.scaleLinear().range([height, 0]);
@@ -43,6 +45,7 @@ function drawEvolution(typesArray) {
         let previousAmount;
         let year = "";
 
+        evolutionData = data;
         data.forEach(function (d) {
             year = d.year.split("-")[0];
 
@@ -199,15 +202,34 @@ function drawEvolution(typesArray) {
             }
 
             $("#year-title").text(year);
-
-            /*let yearPart = parseInt(year) + 1;
-            let totalYear = year + "-" + yearPart.toString();
-
-            yearsArray = [];
-
-
-            yearsArray.push(totalYear);
-            fillWorldmap();*/
         }
     });
+}
+
+function updateEvolutionPercent(ui) {
+    let minYear = parseTime(ui.values[0]);
+    let maxYear = parseTime(ui.values[1]);
+
+    let minYearAmount, maxYearAmount;
+
+    for(let i = 0; i < evolutionData.length; ++i) {
+        if(evolutionData[i].year == minYear.toString()) {
+            minYearAmount = evolutionData[i].amount;
+        }
+
+        if(evolutionData[i].year == maxYear.toString()) {
+            maxYearAmount = evolutionData[i].amount;
+        }
+    }
+
+    let differenceTotal = (maxYearAmount - minYearAmount);
+    let growthTotal = (differenceTotal / minYearAmount) * 100;
+
+    if (growthTotal > 0) {
+        $("#total-growth").html("<span class='percentage2' style=\"color: green\">" + Math.abs(Number((growthTotal).toFixed(1))) + "%<span class='up glyphicon glyphicon-triangle-top'></span></span>");
+    } else if (growthTotal < 0) {
+        $("#total-growth").html("<span class='percentage2' style=\"color: red\">" + Math.abs(Number((growthTotal).toFixed(1))) + "%<span class='down glyphicon glyphicon-triangle-bottom'></span></span>");
+    } else {
+        $("#total-growth").html("<span class='percentage2' style=\"color: black\">" + Math.abs(Number((growthTotal).toFixed(1))) + "%<span class='even glyphicon glyphicon-minus'></span></span>");
+    }
 }

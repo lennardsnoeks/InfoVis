@@ -143,7 +143,6 @@ function drawDonut2(iso, yearsArray) {
     d3.select("#donut-chart-id-2").remove();
 
     $.get('http://localhost:3000/countrytype?iso=' + iso + '&years=' + yearsArray.toString(), {}, function (data) {
-        console.log(data);
         let svg = d3.select("#donut-chart-2")
             .append('svg')
             .attr("id","donut-chart-id-2")
@@ -193,7 +192,7 @@ function drawDonut2(iso, yearsArray) {
                     .select(".text-group").remove();
             })
             .on("click", function(d) {
-                updateBarChart(d.data.type, iso, yearsArray);
+                updateBarChart2(d.data.type, iso, yearsArray);
             })
             .append('path')
             .attr('d', arc)

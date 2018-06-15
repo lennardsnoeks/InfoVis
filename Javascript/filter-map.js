@@ -75,8 +75,6 @@ $(document).ready(function () {
         $('#tags').tagsinput('add', $(this).val());
         $('#tags').tagsinput('remove', "Alle opleidingen");
 
-        /*let field = $(this).text();
-        if($.inArray(field, fieldsArray) === -1) {*/
         let field = $(this).val();
         if ($.inArray(field, fieldsArray) === -1) {
             fieldsArray.push(field);
@@ -168,7 +166,7 @@ $(document).ready(function () {
         min: 2013,
         max: 2017,
         values: [2013, 2017],
-        slide: function( event, ui ) {
+        stop: function( event, ui ) {
 
             let arrayLength = yearsArray.length;
 
@@ -200,6 +198,7 @@ $(document).ready(function () {
             }
 
             fillWorldmap();
+            updateEvolutionPercent(ui);
         }
     });
 });
@@ -216,7 +215,6 @@ function removeTag(item, array, defaultTag) {
 }
 
 function fillWorldmap() {
-    console.log("test");
     let apiCall = 'http://localhost:3000/worldmap?';
 
     if (yearsArray.length > 0) {
@@ -265,7 +263,7 @@ function fillWorldmap() {
         // Modify data to represent flags
         data.forEach(function (d) {
             /*d.iso = "<img class='icon' src='flags/" + d.iso + ".svg'/>";*/
-            let link = "http://localhost:63342/InfoVis/country-info.html?"
+            let link = "http://localhost:63342/Project_Info_Vis/country-info.html?"
                 + "iso=" + d.iso
                 + "&years=" + yearsArray.join();
 
@@ -328,7 +326,7 @@ function createMap(dataset) {
         done: function (datamap) {
             datamap.svg.selectAll('.datamaps-subunit').on('click', function (geography) {
                 if (parseInt(amount) !== 0) {
-                    window.location.href = "http://localhost:63342/InfoVis/country-info.html?"
+                    window.location.href = "http://localhost:63342/Project_Info_Vis/country-info.html?"
                         + "iso=" + geography.properties.iso
                         + "&years=" + yearsArray.join()
                 }
