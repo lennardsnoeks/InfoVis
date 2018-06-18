@@ -18,6 +18,11 @@
     justify-content: left;
 }
 
+#bottom-info {
+    margin-top: 75px;
+    display: none;
+}
+
 .inputrow {
     justify-content: left;
 }
@@ -47,9 +52,8 @@
     border-bottom: 1px solid #ddd;
 }
 
-#info-evolution {
-    margin-left: 0;
-    padding-left: 120px;
+#info-evolution-country {
+    margin-top: 50px;
 }
 
 #comparison {
@@ -73,6 +77,18 @@
     font-size: 20px;
 }
 
+#country1_evo, #country2_evo {
+    writing-mode: tb-rl;
+    transform: rotate(180deg);
+    color: grey;
+    margin-top: auto;
+    margin-bottom: auto;
+    margin-right: 100px;
+    padding-right: 30px;
+    font-weight: normal;
+    font-size: 20px;
+}
+
 .donut-col {
     display: flex;
     justify-content: left;
@@ -80,4 +96,12 @@
 
 #comparison-row {
     display: none;
+}
+
+#country1_evo {
+    border-left: 3px solid hotpink;
+}
+
+#country2_evo {
+    border-left: 3px solid yellowgreen;
 }

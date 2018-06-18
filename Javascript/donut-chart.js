@@ -16,10 +16,11 @@ let hovercolor = d3.scaleOrdinal()
 
 function drawVisualisation(iso, yearsArray) {
     drawDonut(iso, yearsArray);
-    drawEvolution(iso, typesArray);
+    drawEvolution(iso, iso2, typesArray);
 
     $.get('http://localhost:3000/name/' + iso, {}, function (data) {
         $('#country1').text(data[0]["land"]);
+        $('#country1_evo').text(data[0]["land"]);
     });
 }
 
@@ -27,7 +28,6 @@ function drawDonut(iso, yearsArray) {
     d3.select("#donut-chart-id").remove();
 
     $.get('http://localhost:3000/countrytype?iso=' + iso + '&years=' + yearsArray.toString(), {}, function (data) {
-        console.log(data);
         let svg = d3.select("#donut-chart")
             .append('svg')
             .attr("id","donut-chart-id")
@@ -131,11 +131,12 @@ function drawDonut(iso, yearsArray) {
 }
 
 function drawVisualisation2(iso, yearsArray) {
-    drawDonut2(iso, yearsArray);
-    //drawEvolution2(iso, typesArray);
+    drawDonut2(iso2, yearsArray);
+    drawEvolution(iso, iso2, typesArray);
 
-    $.get('http://localhost:3000/name/' + iso, {}, function (data) {
+    $.get('http://localhost:3000/name/' + iso2, {}, function (data) {
         $('#country2').text(data[0]["land"]);
+        $('#country2_evo').text(data[0]["land"]);
     });
 }
 

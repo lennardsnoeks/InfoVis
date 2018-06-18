@@ -3,6 +3,7 @@ let typesArray = [];
 
 const url = new URL(window.location.href);
 let iso = url.searchParams.get("iso");
+let iso2 = "";
 let years = url.searchParams.get("years");
 let country, type;
 
@@ -67,9 +68,9 @@ $(document).ready(function() {
 
         drawVisualisation(iso, yearsArray);
 
-        if($('#comparison-row').css('display') == 'block')
+        if($('#comparison-row').css('display') === 'block')
         {
-            drawVisualisation2(iso2, yearsArray);
+            drawVisualisation2(iso, yearsArray);
         }
     });
 
@@ -84,12 +85,18 @@ $(document).ready(function() {
         iso2 = $(this).val();
 
         $('#comparison-row').css("display", "block");
+        $('#bottom-info').css("display", "flex");
 
-        drawVisualisation2(iso2, yearsArray);
+        drawVisualisation2(iso, yearsArray);
     });
 
     $('#deleteComparison').on('click', function() {
         $('#comparison-row').css("display", "none");
+        $('#bottom-info').css("display", "none");
+
+        iso2 = "";
+
+        drawEvolution(iso, iso2, typesArray);
     });
 
     $('#deleteFiltersDivide').on('click', function() {
@@ -100,9 +107,9 @@ $(document).ready(function() {
 
         drawVisualisation(iso, yearsArray);
 
-        if($('#comparison-row').css('display') == 'block')
+        if($('#comparison-row').css('display') === 'block')
         {
-            drawVisualisation2(iso2, yearsArray);
+            drawVisualisation2(iso, yearsArray);
         }
     });
 
@@ -117,9 +124,9 @@ $(document).ready(function() {
 
             drawVisualisation(iso, yearsArray);
 
-            if($('#comparison-row').css('display') == 'block')
+            if($('#comparison-row').css('display') === 'block')
             {
-                drawVisualisation2(iso2, yearsArray);
+                drawVisualisation2(iso, yearsArray);
             }
         }
     });
@@ -133,7 +140,7 @@ $(document).ready(function() {
         typesArray.push($(this).text());
         $('#tagsEvolution').tagsinput('remove', "Elk type opleiding");
 
-        drawEvolution(iso, typesArray)
+        drawEvolution(iso, iso2, typesArray)
     });
 
     $('#tagsEvolution').on('itemRemoved', function(event) {
@@ -145,7 +152,7 @@ $(document).ready(function() {
                 $('#tagsEvolution').tagsinput('add', "Elk type opleiding");
             }
 
-            drawEvolution(iso, typesArray)
+            drawEvolution(iso, iso2, typesArray)
         }
     });
 
@@ -155,7 +162,7 @@ $(document).ready(function() {
 
         typesArray = [];
 
-        drawEvolution(iso, typesArray)
+        drawEvolution(iso, iso2, typesArray)
     });
 });
 

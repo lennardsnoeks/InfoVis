@@ -67,7 +67,7 @@ function updateBarChart(type, iso, yearsArray) {
                 tooltip.style("display", "none");
             })
             .on("click", function (d, i) {
-                window.location.href = "http://localhost:63342/Project_Info_Vis/subject-info.html?"
+                window.location.href = "http://localhost:63342/InfoVis/subject-info.html?"
                     + "subject=" + d.opleiding
             });
 
@@ -141,7 +141,7 @@ function updateBarChart2(type, iso, yearsArray) {
                 tooltip.style("display", "none");
             })
             .on("click", function (d, i) {
-                window.location.href = "http://localhost:63342/Project_Info_Vis/subject-info.html?"
+                window.location.href = "http://localhost:63342/InfoVis/subject-info.html?"
                     + "subject=" + d.opleiding
             });
 
