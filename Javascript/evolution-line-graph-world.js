@@ -137,7 +137,8 @@ function drawEvolution(typesArray) {
         g.append("path")
             .datum(data)
             .attr("class", "line")
-            .attr("d", line);
+            .attr("d", line)
+            .attr("stroke", "lightslategray");
 
         let focus = g.append("g")
             .attr("class", "focus")
