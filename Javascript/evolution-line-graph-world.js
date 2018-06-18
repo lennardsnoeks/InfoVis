@@ -138,7 +138,7 @@ function drawEvolution(typesArray) {
             .datum(data)
             .attr("class", "line")
             .attr("d", line)
-            .attr("stroke", "lightslategray");
+            .attr("stroke", "hotpink");
 
         let focus = g.append("g")
             .attr("class", "focus")
