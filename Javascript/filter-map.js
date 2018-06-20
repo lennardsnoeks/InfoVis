@@ -119,23 +119,43 @@ $(document).ready(function () {
     // Add tags when user selects them, also add them to internal array. When user clicks search these parameters
     // are used to retrieve the data
     $("#filter-input-evolution").on("click", "#dropdown-sort-edu-evo li", function () {
-        $('#tagsEvolution').tagsinput('add', $(this).text());
         evolutionArray.push($(this).text());
+        typesArray.push($(this).text());
+
+        $('#tagsEvolution').tagsinput('add', $(this).text());
         $('#tagsEvolution').tagsinput('remove', "Elk type opleiding");
 
-        drawEvolution(evolutionArray)
+        $('#tags').tagsinput('add', $(this).text());
+        $('#tags').tagsinput('remove', "Elk type opleiding");
+
+        drawEvolution(evolutionArray);
+        fillWorldmap();
     });
 
     $('#tagsEvolution').on('itemRemoved', function (event) {
-        let index = $.inArray(event.item, evolutionArray);
-        if (index !== -1) {
-            evolutionArray.splice(index, 1);
+        let evoIndex = $.inArray(event.item, evolutionArray);
+        let worldIndex = $.inArray(event.item, typesArray);
+
+        if (evoIndex !== -1) {
+            evolutionArray.splice(evoIndex, 1);
 
             if (evolutionArray.length === 0) {
                 $('#tagsEvolution').tagsinput('add', "Elk type opleiding");
             }
 
             drawEvolution(evolutionArray)
+        }
+
+        if (worldIndex !== -1) {
+            typesArray.splice(worldIndex, 1);
+
+            $('#tags').tagsinput('remove', event.item);
+
+            if (typesArray.length === 0) {
+                $('#tags').tagsinput('add', "Elk type opleiding");
+            }
+
+            fillWorldmap();
         }
     });
 
@@ -262,7 +282,7 @@ function fillWorldmap() {
 
         // Modify data to represent flags
         data.forEach(function (d) {
-            let link = "http://localhost:63342/InfoVis/country-info.html?"
+            let link = "http://localhost:63342/Project_Info_Vis/country-info.html?"
                 + "iso=" + d.iso
                 + "&years=" + yearsArray.join();
 
@@ -325,7 +345,7 @@ function createMap(dataset) {
         done: function (datamap) {
             datamap.svg.selectAll('.datamaps-subunit').on('click', function (geography) {
                 if (parseInt(amount) !== 0) {
-                    window.location.href = "http://localhost:63342/InfoVis/country-info.html?"
+                    window.location.href = "http://localhost:63342/Project_Info_Vis/country-info.html?"
                         + "iso=" + geography.properties.iso
                         + "&years=" + yearsArray.join()
                 }
