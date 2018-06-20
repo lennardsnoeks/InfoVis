@@ -120,42 +120,24 @@ $(document).ready(function () {
     // are used to retrieve the data
     $("#filter-input-evolution").on("click", "#dropdown-sort-edu-evo li", function () {
         evolutionArray.push($(this).text());
-        typesArray.push($(this).text());
 
         $('#tagsEvolution').tagsinput('add', $(this).text());
         $('#tagsEvolution').tagsinput('remove', "Elk type opleiding");
 
-        $('#tags').tagsinput('add', $(this).text());
-        $('#tags').tagsinput('remove', "Elk type opleiding");
-
         drawEvolution(evolutionArray);
-        fillWorldmap();
     });
 
     $('#tagsEvolution').on('itemRemoved', function (event) {
-        let evoIndex = $.inArray(event.item, evolutionArray);
-        let worldIndex = $.inArray(event.item, typesArray);
+        let index = $.inArray(event.item, evolutionArray);
 
-        if (evoIndex !== -1) {
-            evolutionArray.splice(evoIndex, 1);
+        if (index !== -1) {
+            evolutionArray.splice(index, 1);
 
             if (evolutionArray.length === 0) {
                 $('#tagsEvolution').tagsinput('add', "Elk type opleiding");
             }
 
             drawEvolution(evolutionArray)
-        }
-
-        if (worldIndex !== -1) {
-            typesArray.splice(worldIndex, 1);
-
-            $('#tags').tagsinput('remove', event.item);
-
-            if (typesArray.length === 0) {
-                $('#tags').tagsinput('add', "Elk type opleiding");
-            }
-
-            fillWorldmap();
         }
     });
 
