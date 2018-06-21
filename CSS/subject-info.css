@@ -17,8 +17,9 @@
     margin-right:15%;
 }
 
-body {
-    font-family: 'Open Sans', sans-serif;
+.subtitle {
+    margin-top: 25px;
+    margin-bottom: 50px;
 }
 
 .axis .domain {
