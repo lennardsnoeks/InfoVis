@@ -70,7 +70,7 @@
 }
 
 .dropdown {
-    width: 200px;
+    width: 180px;
     height: 34px;
 }
 
@@ -78,7 +78,7 @@
     border-color:#ccc;
     box-shadow:0 0 0 0;
     height: 34px;
-    width: 100%;
+    width: 180px;
     font-size: 14px;
 }
 
@@ -231,7 +231,8 @@
 }
 
 #toggle-buttons {
-    margin-left: 10%;
+    margin-left: 4%;
+    width: 150px;
 }
 
 #min {
@@ -239,8 +240,8 @@
 }
 
 #amount-wrapper {
-    margin-left: 10%;
-    /*margin-right: 15%;*/
+    margin-left: 8%;
+    width: 180px;
 }
 
 .bootstrap-table {
