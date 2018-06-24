@@ -97,6 +97,7 @@
     border-style: solid;
     outline: none;
 }
+
 .subtitle {
     font-size: 1.5em;
     margin-left: auto;
@@ -231,7 +232,7 @@
 }
 
 #toggle-buttons {
-    margin-left: 4%;
+    margin-left: 5%;
     width: 150px;
 }
 

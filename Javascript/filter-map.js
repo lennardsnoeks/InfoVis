@@ -264,7 +264,7 @@ function fillWorldmap() {
 
         // Modify data to represent flags
         data.forEach(function (d) {
-            let link = "http://localhost:63342/InfoVis/country-info.html?"
+            let link = "http://localhost:63342/Project_Info_Vis/country-info.html?"
                 + "iso=" + d.iso
                 + "&years=" + yearsArray.join();
 
@@ -327,7 +327,7 @@ function createMap(dataset) {
         done: function (datamap) {
             datamap.svg.selectAll('.datamaps-subunit').on('click', function (geography) {
                 if (parseInt(amount) !== 0) {
-                    window.location.href = "http://localhost:63342/InfoVis/country-info.html?"
+                    window.location.href = "http://localhost:63342/Project_Info_Vis/country-info.html?"
                         + "iso=" + geography.properties.iso
                         + "&years=" + yearsArray.join()
                 }
